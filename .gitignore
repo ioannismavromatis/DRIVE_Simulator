@@ -1,0 +1,6 @@
+*.*~
+*.asv
+*.mat
+results
+.DS_Store
+mobilityFiles
