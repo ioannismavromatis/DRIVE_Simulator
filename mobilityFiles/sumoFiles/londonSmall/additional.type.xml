@@ -1,0 +1,6 @@
+ <additional>
+    <vTypeDistribution id="typedist1">
+        <vType id="pas" vClass="passenger" impatience="0" probability="0.85" laneChangeModel="SL2015" maxSpeed="10" speedFactor="normc(1,0.1,0.2,2)" lcSublane="100"/>
+        <vType id="amb" vClass="emergency" impatience="10" probability="0.15" laneChangeModel="SL2015" maxSpeed="20" speedFactor="2" color="1,0,0" lcStrategic="100" lcSpeedGain="100" lcSublane="100" lcPushy="1" lcImpatience="1"/>
+    </vTypeDistribution>
+ </additional>
