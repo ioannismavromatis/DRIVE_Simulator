@@ -21,9 +21,10 @@ The framework is designed in such a way to be highly parallelised and vectorised
     * A scenario based on just an OSM map, simulating indoor traffic and a macro-cell communication plane that calculates the average datarate for the given technology.
     * A scenario with both indoor traffic and SUMO mobility traces, that changes the configuration of the given communication planes based on the user density.
 	* A scenario that calculates the number of established links between vehicles and pedestrians, in a Vehicle-to-Vehicle and Pedestrian-to-Pedestrian fashion.
-* Two example maps extracted from [OpenStreetMap](https://www.openstreetmap.org/), with their corresponding mobility traces, generated using [SUMO traffic generator](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-9883/16931_read-41000/).
+* Two example maps extracted from [OpenStreetMap](https://www.openstreetmap.org/), with their corresponding mobility traces, generated using [SUMO traffic generator](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-9883/16931_read-41000/). Also, one more example generated using netgenerate SUMO tool.
     * Manhattan -- ~9km<sup>2</sup> of buildings, foliage and roads, with vehicular (2 different types of vehicles) and pedestrian mobility traces generated.
     * London -- ~4km<sup>2</sup> of buildings, foliage and roads, with vehicular (2 types of vehicles) mobility traces generated.
+    * Smart Junction -- A cross-junction (one lane per road), and with the corresponding vehicular (2 types of vehicles) mobility traces generated. 
 
 ## Useful Links
 
