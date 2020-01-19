@@ -1,4 +1,5 @@
-function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosRSS,rssAll ] = ...
+function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosRSS,rssAll,...
+           distanceBuildings, sortedIndexesBuildings, rssBuildings ] = ...
                  perRATTiles(outputMap,potentialBSPos,BS,map)
 %perRATTiles Find the LOS and NLOS tiles for each RAT used. 
 %  Calculate the RSS per basestation for these tiles using the existing   
@@ -53,6 +54,9 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
                    losNLosTilesPerRAT(outputMap,potentialBSPos,BS,BS.rats{i});
 
             [losRSS{i},nLosRSS{i},rssAll{i}] = calculateRSSV2I(losNlosStatus{i},distanceTiles{i},sortedIndexes{i},potentialBSPos.(BS.rats{i}),BS,BS.rats{i});   
+            
+            [ distanceBuildings{i}, sortedIndexesBuildings{i}, rssBuildings{i} ] = ...
+                calculateRSSBStoBuilding(outputMap,potentialBSPos.(BS.rats{i}),BS,BS.rats{i});
         end
         
         % Save the identified los/nlos interactions in an new file
@@ -67,7 +71,8 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
             fileSaveName = [ fileName{end} '_id' num2str(randi(999999)) '_losNlosRAT.mat' ];
             fprintf('Saving preprocessed potential losNlosRAT file: %s\n', fileSaveName);
             save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','losNlosStatus','distanceTiles',...
-                'sortedIndexes','losRSS','nLosRSS','rssAll', 'potentialBSPos','outputMap', 'BS', 'map');
+                'sortedIndexes','losRSS','nLosRSS','rssAll', 'potentialBSPos','outputMap', 'BS', 'map',...
+                'distanceBuildings','sortedIndexesBuildings','rssBuildings');
         else
             fprintf('The file with all the potential V2I links will not be saved\n.');
         end 

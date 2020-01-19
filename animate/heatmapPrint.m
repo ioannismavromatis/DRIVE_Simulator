@@ -27,22 +27,9 @@ function heatmapPrint(outputMap,map,highestRSSValue,chosenBSpos,potBSPos,tilesID
     hold on;
 
     if map.tileShape == 1
-        [x,y] = unique(tilesID);
-        %
-        %  TO BE FIXED LATER
-        %
-        % Plot the heatmap for hexagon tiles
-        tileCounter = 1;
-        plotCounter = 0;
-        for i = 1:numel(outputMap.pHandle)
-            if all(outputMap.pHandle{i}~=1) && length(outputMap.pHandle{i}) == 6 && outputMap.validIncentresIDs(i)
-                if ismember(tileCounter,x)
-                    plotCounter = plotCounter + 1;
-                    patch(outputMap.vHandle(outputMap.pHandle{i},1), ...
-                        outputMap.vHandle(outputMap.pHandle{i},2),highestRSSValue(y(plotCounter)),'LineStyle','none'); 
-                end
-                tileCounter = tileCounter + 1;
-            end
+        for i = 1:length(highestRSSValue)
+            patch(outputMap.tileVerticesX(tilesID(i),:),outputMap.tileVerticesY(tilesID(i),:),highestRSSValue(i),'LineStyle','none');
+            hold on
         end
     else
         % Plot the heatmap for square tiles

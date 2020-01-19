@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<shapes>
+<poly id="1" type="building" color="1.00,0.00,0.00" fill="1" layer="4" shape="20,20 20,480 480,480 480,20 20,20"/>
+<poly id="2" type="building" color="1.00,0.00,0.00" fill="1" layer="4" shape="20,520 20,980 480,980 480,520 20,520"/>
+<poly id="3" type="building" color="1.00,0.00,0.00" fill="1" layer="4" shape="520,20 520,480 980,480 980,20 520,20"/>
+<poly id="4" type="building" color="1.00,0.00,0.00" fill="1" layer="4" shape="520,520 520,980 980,980 980,520 520,520"/>
+</shapes>

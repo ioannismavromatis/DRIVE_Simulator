@@ -54,8 +54,10 @@ function runOSM(map,BS,outputMap,potentialPos,distanceTiles,sortedIndexes,losNlo
         end
         [~,~,rssAll{1},potentialPos.lte] = updateRSS(losNlosStatus{1},distanceTiles{1},sortedIndexes{1},potentialPos.lte,BS,'lte');
         [ servingBSId{1},highestRSS{1},highestRSSPlot{1},losNlos{1},tilesCoveredIDs{1},tilesCovered{1} ] = highestRSSValues(1:length(potentialPos.lte.pos),outputMap,sortedIndexes{1}, rssAll{1},losNlosStatus{1});
-%         figure
-%         heatmapPrint(outputMap,map,highestRSSPlot{1},1:length(potentialPos.lte.pos),potentialPos.lte.pos,tilesCoveredIDs{1})
+        if i == 10
+            figure
+            heatmapPrint(outputMap,map,highestRSSPlot{1},1:length(potentialPos.lte.pos),potentialPos.lte.pos,tilesCoveredIDs{1})
+        end
 %         hold on
 %         plot(highDemand(2),highDemand(1),'rx','MarkerSize',40,'lineWidth',10)
         

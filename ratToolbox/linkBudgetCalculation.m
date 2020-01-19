@@ -26,11 +26,8 @@ function linkBudget = linkBudgetCalculation(BS)
 
     % Find the received signal for all the distances and calculate the
     % Signal-to-Noise-Ratio
-    if strcmp(BS.pathLossModel,'freespace')
-        [ signalLossLos, signalReceivedLos, signalLossNLos, signalReceivedNLos ] = freespace(distance,BS);
-    elseif strcmp(BS.pathLossModel,'urbanMacro')
-        [ signalLossLos, signalReceivedLos, signalLossNLos, signalReceivedNLos ] = urbanMacro(distance,BS);
-    end
+    functionHandle = str2func(BS.pathLossModel);
+    [ signalLossLos, signalReceivedLos, signalLossNLos, signalReceivedNLos ] = functionHandle(distance,BS);
 
     SNRlos = signalReceivedLos - BS.rssNoise;
     SNRNlos = signalReceivedNLos - BS.rssNoise;

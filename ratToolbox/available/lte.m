@@ -11,7 +11,7 @@ beamwidthAngle = 120; % default beamwidth for mmWaves - may be changed during th
 mimo = 0; % give 0 for SISO channel and 1 for MIMO 4x4
 bsGain = 18; % the antenna gain of the basestation
 mobileGain = 0;  % the antenna gain of the mobile station
-pathLossExponent = 2.4;
+pathLossExponentLOS = 2.4;
 macroDensity = 0.5; % The number of basestations per square km.
 
 % The maximum distance that the LTE signal can still be considered as

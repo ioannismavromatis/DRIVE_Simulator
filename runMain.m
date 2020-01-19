@@ -39,7 +39,8 @@ function runMain( map, sumo, BS, linkBudget )
     potentialBSPos = potentialBSPositions(outputMap, BS, map,linkBudget);
     
     [ losIDsPerRAT,nLosIDsPerRAT, losNlosStatusPerRAT, distancePerRAT, ...
-        sortedIndexesPerRat, initialLosTilesRSS, initialNLosTilesRSS, initialRssAll ] = ...
+        sortedIndexesPerRat, initialLosTilesRSS, initialNLosTilesRSS, initialRssAll, ...
+        distanceBuildings, sortedIndexesBuildings, rssBuildings ] = ...
                 perRATTiles(outputMap,potentialBSPos,BS,map);
 
     if strcmp(SIMULATOR.scenario,'osm')
@@ -50,7 +51,7 @@ function runMain( map, sumo, BS, linkBudget )
         
         runOSM(map,BS,outputMap,potentialBSPos,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll);
     elseif strcmp(SIMULATOR.scenario,'sumo')
-        [ vehicles, pedestrians ] = runSUMO(sumo,map,BS,outputMap,potentialBSPos,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll);
+        [ vehicles, pedestrians ] = runSUMO(sumo,map,BS,outputMap,potentialBSPos,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll, distanceBuildings, sortedIndexesBuildings, rssBuildings);
     elseif strcmp(SIMULATOR.scenario,'v2v')
         [ vehicles, pedestrians ] = runV2V(sumo,map,BS,outputMap,distancePerTile,sortedIndicesPerTile,losNlosStatusPerTile,initialRssAllV2V);
     else

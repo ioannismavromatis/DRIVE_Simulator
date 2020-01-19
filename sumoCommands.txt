@@ -1,7 +1,0 @@
-netconvert --osm-files manhattanLarge.osm.xml --output-file manhattanLarge.net.xml --no-turnarounds --osm.elevation --sidewalks.guess --crossings.guess --remove-edges.by-vclass rail,rail_electric,bicycle,tram,rail_urban,bus --junctions.join --lefthand
-
-polyconvert --osm-files manhattanLarge.osm.xml --net-file manhattanLarge.net.xml -o manhattanLarge.poly.xml
-
-~/Documents/git/sumo-1.1.0/tools/randomTrips.py --net-file=manhattanLarge.net.xml --additional-files=additional.type.xml --output-trip-file=manhattanLarge.trips.xml --route-file=manhattanLarge.rou.xml --begin=0 --end=2000 --verbose --trip-attributes="type=\"typedist1\" departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
-
-~/Documents/git/sumo-1.1.0/tools/randomTrips.py --net-file=manhattanLarge.net.xml --additional-files=additional.type.xml --output-trip-file=manhattanLargePedestrian.trips.xml --route-file=manhattanLargePedestrian.rou.xml --begin=0 --end=2000 --verbose --pedestrians

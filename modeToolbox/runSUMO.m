@@ -1,5 +1,6 @@
 function [vehicles,pedestrians] = ...
-            runSUMO(sumo,map,BS,outputMap,potentialPos,distanceTiles,sortedIndexes,losNlosStatus,rssAll)
+            runSUMO(sumo,map,BS,outputMap,potentialPos,distanceTiles,...
+            sortedIndexes,losNlosStatus,rssAll,distanceBuildings, sortedIndexesBuildings, rssAllBuildings)
 %RUNSUMO This is the main function of the SUMO mode. It initialises the
 % highestRSS, the servingBSs and the tiles covered variables. Later, it
 % iterates for all the timesteps and calculates the users per area on each
@@ -7,24 +8,28 @@ function [vehicles,pedestrians] = ...
 % specific times and recalculates the necessary variables.
 %
 %  Input  :
-%     sumo          : Structure containing all the SUMO settings (maximum
-%                     number of vehicles, start time, end time, etc.)
-%     map           : Structure containing all map settings (filename, path,
-%                     simplification tolerance to be used, etc).
-%     outputMap     : The map structure containing all the map information.
-%     potentialPos  : All the potential positions for all the different RATs.
-%     distanceTiles : The distanceTiles of each tile from a given BS.
-%     sortedIndexes : The sorted indexes for the tile close to BS, given
-%                     from the closest to the furthest one.
-%     losNlosStatus : The classification of each tile (LOS/NLOS) for a
-%                     given BS - 0 is NLOS, 1 is LOS
-%     rssAll        : The received signal strength for the all given tiles.
+%     sumo             : Structure containing all the SUMO settings (maximum
+%                        number of vehicles, start time, end time, etc.)
+%     map              : Structure containing all map settings (filename, path,
+%                        simplification tolerance to be used, etc).
+%     outputMap        : The map structure containing all the map information.
+%     potentialPos     : All the potential positions for all the different RATs.
+%     distanceTiles    : The distanceTiles of each tile from a given BS.
+%     sortedIndexes    : The sorted indexes for the tile close to BS, given
+%                        from the closest to the furthest one.
+%     losNlosStatus    : The classification of each tile (LOS/NLOS) for a
+%                        given BS - 0 is NLOS, 1 is LOS
+%     rssAll           : The received signal strength for the all given tiles.
+%     distanceBuilding : The distance of each building from a given BS.
+%     sortedIndexesBuildings : The sorted indexes for the building close to BS, given
+%                              from the closest to the furthest one.
+%     rssAllBuildings  : The received signal strength for the all given buildings.
 %
 %  Output :
-%     vehicles      : Array containing all the information about the
-%                     vehicles for the entire simulation time.
-%     pedestrians   : Array containing all the information about the
-%                     pedestrians for the entire simulation time.
+%     vehicles         : Array containing all the information about the
+%                        vehicles for the entire simulation time.
+%     pedestrians      : Array containing all the information about the
+%                        pedestrians for the entire simulation time.
 %
 % Copyright (c) 2018-2019, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
@@ -34,12 +39,18 @@ function [vehicles,pedestrians] = ...
     % Initialise the potential BS positions for all the communication
     % planes.
     bsIDs{1} = 1:length(potentialPos.lte.pos);
-    bsIDs{2} = randi(length(potentialPos.mmWaves.pos),1,300);
+    randomPos = 30;
+%     if length(potentialPos.mmWaves.pos)<=randomPos
+%         randomPos = length(potentialPos.mmWaves.pos);
+%     end
+%     bsIDs{2} = randi(length(potentialPos.mmWaves.pos),1,randomPos);
+%     bsIDs{2} = unique(bsIDs{2});
+    bsIDs{2} = 2;
     
     for i = 1:length(bsIDs)
         [ servingBSId{i},highestRSS{i},highestRSSPlot{i},losNlos{i},tilesCoveredIDs{i},tilesCovered{i} ] = highestRSSValues(bsIDs{i},outputMap,sortedIndexes{i}, rssAll{i},losNlosStatus{i});
-%         figure
-%         heatmapPrint(outputMap,map,highestRSSPlot{i},bsIDs{i},potentialPos.(BS.rats{i}).pos,tilesCoveredIDs{i})    
+        figure
+        heatmapPrint(outputMap,map,highestRSSPlot{i},bsIDs{i},potentialPos.(BS.rats{i}).pos,tilesCoveredIDs{i})    
     end
     
     % Progress to the first simulation step
@@ -108,6 +119,7 @@ function [vehicles,pedestrians] = ...
             	potentialPos.lte.configuration(idxBS(l)).txPower = 43;
             end
             [~,~,rssAll{1},potentialPos.lte] = updateRSS(losNlosStatus{1},distanceTiles{1},sortedIndexes{1},potentialPos.lte,BS,'lte');
+            rssAllBuildings2{1} = updateRSSBuildings(distanceBuildings{1},potentialPos.lte,BS,'lte');
             
             [ servingBSId{1},highestRSS{1},highestRSSPlot{1},losNlos{1},tilesCoveredIDs{1},tilesCovered{1} ] = highestRSSValues(1:length(potentialPos.lte.pos),outputMap,sortedIndexes{1}, rssAll{1},losNlosStatus{1});
 %             figure

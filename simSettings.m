@@ -13,16 +13,16 @@ VERBOSELEVEL = 1; % Use 0 to print nothing, 1 to print some
                                     
 %% Simulator Settings              
 global SIMULATOR 
-SIMULATOR.scenario = 'osm'; % three scenarios provided, i.e. 'v2v', 'sumo', 'osm'
+SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e. 'v2v', 'sumo', 'osm'
 SIMULATOR.parallelRun = 1;
 SIMULATOR.parallelWorkers = 8;
 SIMULATOR.sumoPath = '/usr/local/bin';
-SIMULATOR.map = 0; % give 0 to parse an OSM map, 1 to parse map from SUMO
+SIMULATOR.map = 1; % give 0 to parse an OSM map, 1 to parse map from SUMO
 SIMULATOR.load = 2; % Choose if the preprocessed files will be loaded - 0 process from scratch, 1 ask user, 2 load all (if existing)
 SIMULATOR.pathPreprocessed = './mobilityFiles/preprocessedFiles';
 
 %% SUMO Settings
-sumo.routeFile = './mobilityFiles/sumoFiles/londonSmall/londonSmall.sumocfg';
+sumo.routeFile = './mobilityFiles/sumoFiles/smartJunction/smartJunction.sumocfg';
 sumo.maxVehicleNumber = 200; % maximum number of vehicles per timestep - set to zero if all vehicles are to be considered
 sumo.startTime = 0;
 sumo.endTime = 200;
@@ -34,15 +34,15 @@ sumo.vehicleTypes= {'Ambulance';'Passenger'};
 sumo.vehicleTypeAbbreviation= {'amb' ; 'pas'};
 
 %% Map Settings
-map.file = './mobilityFiles/sumoFiles/londonSmall/londonSmall.osm.xml'; % manhattanLarge - londonSmall
+map.file = './mobilityFiles/sumoFiles/smartJunction/smartJunction.osm.xml'; % manhattanLarge - londonSmall - smartJunction
 map.simplificationTolerance = 10;
 map.edgeTolerance = 100;
-map.tileSize = 20; % for square tiles: length of side - for hexagons: length of short diagonal
+map.tileSize = 4; % for square tiles: length of side - for hexagons: length of short diagonal
 map.tileShape = 2; % give 1 for hexagon and 2 for square
-map.area = 500; % give the size of the map tiles to be processed or give 0
+map.area = 200; % give the size of the map tiles to be processed or give 0
                  % to be ignored  --- for square areas: length of side - for 
                  % hexagons: length of short diagonal
-map.areaShape = 1; % give 1 for hexagon and 2 for square
+map.areaShape = 2; % give 1 for hexagon and 2 for square
 map.maxUsersPerBuilding = 100; % the maximum number of users at the user density peak
 map.densitySimplification = 50;
 

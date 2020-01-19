@@ -26,6 +26,7 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
     junctionIDs = traci.junction.getIDList();
     for i = 1:length(junctionIDs)
         shape = traci.junction.getShape(junctionIDs{i});
+        polyObjTmp = polyshape();
         x = [];
         y = [];
         for j = 1:length(shape)

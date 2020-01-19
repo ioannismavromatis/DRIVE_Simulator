@@ -41,6 +41,12 @@ function outputMap = alignToXY(outputMap)
         outputMap.roadsPolygons(:,3) = outputMap.roadsPolygons(:,3) - outputMap.bbox(2,1);
         outputMap.roadsPolygons(:,2) = outputMap.roadsPolygons(:,2) - outputMap.bbox(1,1);
         
+        if isfield(outputMap,'vHandleTile')
+            outputMap.vHandleTile(:,1) = outputMap.vHandleTile(:,1) - outputMap.bbox(2,1);
+            outputMap.vHandleTile(:,2) = outputMap.vHandleTile(:,2) - outputMap.bbox(1,1);
+        end
+            
+        
         % The new bounds for the map
         minX = min(min(outputMap.buildingsAnimation(:,2)),min(outputMap.foliageAnimation(:,2)));
         minY = min(min(outputMap.buildingsAnimation(:,3)),min(outputMap.foliageAnimation(:,3)));

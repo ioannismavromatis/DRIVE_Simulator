@@ -26,7 +26,7 @@ function [obj,typePos] = generateLineObjects(node,structure)
     if isfield(structure, 'vehNode')
         % for the different types of vehicles, pick a random color to
         % represent their type.
-        colours = rand(length(structure.type),3);
+        colours = generateColours(structure);
         typePos = zeros(1,length(structure.type));
         
         % generate all the objects for the vehicles in the simulation

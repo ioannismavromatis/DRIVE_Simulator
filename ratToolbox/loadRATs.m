@@ -44,8 +44,15 @@ function [ BS, linkBudget, map ] = loadRATs(BS,linkBudget,map)
         BS.(ratName).dataRate = dataRate;
         BS.(ratName).mimo = mimo;
         BS.(ratName).maxTXDistance = maxTXDistance;
-        BS.(ratName).pathLossExponent = pathLossExponent;
         BS.(ratName).pathLossModel = pathLossModel;
+        BS.(ratName).pathLossExponentLOS = pathLossExponentLOS;
+        if exist('pathLossExponentNLOS','var')
+            BS.(ratName).pathLossExponentNLOS = pathLossExponentNLOS;
+        else
+            BS.(ratName).pathLossExponentNLOS = pathLossExponentLOS;
+        end
+        
+        
         
         BS.(ratName).linkMargins = sensitivityLevels - BS.(ratName).rssNoise;
         

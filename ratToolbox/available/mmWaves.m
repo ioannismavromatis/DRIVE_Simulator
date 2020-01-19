@@ -1,7 +1,7 @@
 %% MmWave links settings
 ratName = 'mmWaves';
 ratType = 'femto';
-pathLossModel = 'freespace';
+pathLossModel = 'shadowFading';
 cFrequency = 60000000000; % carrier frequency given in Hz
 txPower = 20; % given in dBm
 noiseFloor = -174; % noise floor
@@ -14,7 +14,8 @@ mimo = 0;
 % received -- if a very big value is chosen, it will be adapted later given
 % the mmWave link budget characteristics
 maxTXDistance = 200; 
-pathLossExponent = 2.66;
+pathLossExponentLOS = 2.66;
+pathLossExponentNLOS = 7.17;
 femtoDistanceThreshold = 100; % The maximum distance separation between two femtocell basestations on a road
 
 %% Modulation Schemes for mmWave links

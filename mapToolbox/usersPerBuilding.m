@@ -79,11 +79,11 @@ function outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinate
     userDensity = userDensity/max(userDensity,[],'all');
     
     % For debug purposes only
-%     figure
-%     v = round(userDensity*map.maxUsersPerBuilding);
-%     v = v';
-%     contourf(Xq',Yq',v,'--')
-%     colorbar
+    figure
+    v = round(userDensity*map.maxUsersPerBuilding);
+    v = v';
+    contourf(Xq',Yq',v,'--')
+    colorbar
     
     % Find the number of users per building per square meter
     userPerSqMeter = round(userDensity*map.maxUsersPerBuilding);
