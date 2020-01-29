@@ -2,7 +2,7 @@ function testLosRSS(outputMap,pos,rssTile,raysToTest,losLinks,buildingIds,sorted
 %TESTLOSRSS Summary of this function goes here
 %   Detailed explanation goes here
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     clf;
     mapPrint(outputMap);

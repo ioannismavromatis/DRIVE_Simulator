@@ -26,7 +26,7 @@ function [ bsID, highRSSValue,rssValuetoPlot, losNlos, uniqueIDs, tilesNum ] = h
 %     uniqueIDs      : The tile IDs that are served by a BS.
 %     tilesNum       : The number of tiles served by a BS.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     tic

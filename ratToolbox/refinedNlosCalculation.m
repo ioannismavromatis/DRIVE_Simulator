@@ -17,7 +17,7 @@ function [ nLosLinks, nLosTileIDs, losNlosStatus ] = ...
 %     losNlosStatus   : The classification of each tile (LOS/NLOS) for a
 %                       given BS - 0 is NLOS, 1 is LOS
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     nLosLinks = [ nLosLinks refinementValue+1:length(raysToTest) ];

@@ -25,7 +25,7 @@ function [ distanceTiles, sortedIdxTile, distanceBuildings, sortedIdxBuildings, 
 %                         buildings, given from the closest to the furthest one.
 %     buildingIds       : The unique IDs of the sorted buildings.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

@@ -16,7 +16,7 @@ function [distanceVehicle,idxVehicle,distancePedestrian,idxPedestrian] = nearbyT
 %     distancePedestrian : The distance of each pedestrian from the tile incentres.
 %     idxPedestrian   : The closest tile index for each pedestrian.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     distanceVehicle = [];

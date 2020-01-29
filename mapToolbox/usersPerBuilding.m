@@ -24,7 +24,7 @@ function outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinate
 %     outputMap    : The map structure containing the new users per
 %                    building information.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

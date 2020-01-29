@@ -10,7 +10,7 @@ function [ polygons ] = removeHoles( polygons )
 %  Output :
 %       polygons : The returned polygons (after all holes are removed).
 %                   
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

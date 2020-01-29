@@ -8,7 +8,7 @@ function startTraci( sumo )
 %     sumo : Structure containing all the SUMO settings (maximum number of
 %            vehicles, start time, end time, etc.)
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     global SIMULATOR 

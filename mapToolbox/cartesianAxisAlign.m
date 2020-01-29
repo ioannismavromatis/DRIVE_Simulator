@@ -15,7 +15,7 @@ function [ buildings, foliage, roads, trafficLights, bounds ] = cartesianAxisAli
 %     foliage   : The foliage polygons after the processing.
 %     roads     : The foliage line after the processing.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % Process the buildings polygon

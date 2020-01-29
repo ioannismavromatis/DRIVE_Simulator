@@ -19,7 +19,7 @@ function newPositions = addLamppostPositions(distance,matrixPos,map)
 %                    calculated potential basestations on the lampposts
 %                    and the ones in between.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     newPositions = [];

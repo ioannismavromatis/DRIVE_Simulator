@@ -3,7 +3,7 @@ function testLosNLosTiles(outputMap,tilePos,losTileIDs, nLosTileIDs,rssLosTile,.
 %TESTLOSRSS Test the LOS and NLOS tile calculation and their association
 % with the RSSI values.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
 

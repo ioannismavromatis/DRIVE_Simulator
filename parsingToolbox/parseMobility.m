@@ -16,7 +16,7 @@ function [ vehicleStruct, pedestrianStruct ] = parseMobility( sumo, vehicle, ped
 %     pedestrianStruct : A structure containing all the information about the
 %                        pedestrians (type, position at each timeslot, etc.)
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     global SIMULATOR

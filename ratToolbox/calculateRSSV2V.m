@@ -24,7 +24,7 @@ function [losRSS,nLosRSS,rssAll] = ...
 %     nLosRSS        : The received signal strength for the NLOS tiles.
 %     rssAll         : The received signal strength for the all given tiles.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

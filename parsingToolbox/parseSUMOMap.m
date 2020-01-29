@@ -12,7 +12,7 @@ function outputMap = parseSUMOMap( map, sumo )
 %     outputMap : The map structure extracted from the map file or loaded
 %                 from the preprocessed folder and updated until this point.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

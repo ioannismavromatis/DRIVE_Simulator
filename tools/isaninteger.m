@@ -7,7 +7,7 @@ function boolType = isaninteger(x)
 %  Output :
 %     boolType : A logical value showing whether it is a integer or not.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     boolType = isfinite(x) & x==floor(x);

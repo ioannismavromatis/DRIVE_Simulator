@@ -21,7 +21,7 @@ function [vehicles,pedestrians] = ...
 %     pedestrians   : Array containing all the information about the
 %                     pedestrians for the entire simulation time.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic 

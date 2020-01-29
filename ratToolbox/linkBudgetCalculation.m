@@ -8,7 +8,7 @@ function linkBudget = linkBudgetCalculation(BS)
 %     linkBudget : Structure containing all the informations for the
 %                  linkbudget analysis of the given RAT.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     if strcmp(BS.ratType,'femto')

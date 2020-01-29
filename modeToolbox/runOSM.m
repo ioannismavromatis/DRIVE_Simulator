@@ -17,7 +17,7 @@ function runOSM(map,BS,outputMap,potentialPos,distanceTiles,sortedIndexes,losNlo
 %                     given BS - 0 is NLOS, 1 is LOS
 %     rssAll        : The received signal strength for the all given tiles.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic 

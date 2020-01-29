@@ -27,7 +27,7 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
 %     potentialPos : All the potential positions generated from this
 %                      function for all the different RATs.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     global SIMULATOR

@@ -14,7 +14,7 @@ function correct = testSavedFile(filePos,outputMapTmp,BStmp,maptmp,potentialPosT
 %     correct         : Logical variable showing if the saved file is
 %                       correct or not.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     load([filePos.folder '/' filePos.name]);

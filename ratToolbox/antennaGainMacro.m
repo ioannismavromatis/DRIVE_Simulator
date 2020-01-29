@@ -11,7 +11,7 @@ function gain = antennaGainMacro(beamwidthAngle,frequency)
 %  Output :
 %     gain           : The calculated antenna gain.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     halfBeam = beamwidthAngle/2;

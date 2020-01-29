@@ -16,7 +16,7 @@ function potentialPos = addRATPolicy(potentialPos,BS,ratName,linkBudget)
 %     potentialPos   : Adding the appropriate configuration and linkbudget 
 %                      information for each potential basestation on the map.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     for i = 1:length(potentialPos.(ratName).pos)

@@ -17,7 +17,7 @@ function [randomValues,coordinates,initialX,initialY,interpX,interpY] = initiali
 %     initialY     : A vector with five values equally spaced between the
 %                    start and the end of the map (vertical).
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % round the coordinates for easier manipulation later

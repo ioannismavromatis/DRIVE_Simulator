@@ -14,7 +14,7 @@ function [obj,typePos] = generateLineObjects(node,structure)
 %                 pedestrian's position is changed).
 %     typePos   : The type of the vehicle.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     if isempty(fieldnames(structure))

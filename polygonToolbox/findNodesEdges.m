@@ -11,7 +11,7 @@ function [ nodes, edges ] = findNodesEdges(polygon)
 %     nodes   : The vertices of the given polygon.
 %     edges   : The pair connenctions of the given nodes.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     [~,idx]=unique(polygon(:,1),'stable');

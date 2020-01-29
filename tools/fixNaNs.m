@@ -9,7 +9,7 @@ function polygons = fixNaNs(polygons)
 %  Output :
 %     polygons : The merged polygons after the processing.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     idx = find(isnan(polygons(:,3)));

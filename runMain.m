@@ -10,7 +10,7 @@ function runMain( map, sumo, BS, linkBudget )
 %     BS         : Structure to be filled with the basestation information
 %     linkBudget : Structure to be filled with the link budget information
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     global SIMULATOR

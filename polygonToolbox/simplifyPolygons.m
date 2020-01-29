@@ -11,7 +11,7 @@ function simplPolygons = simplifyPolygons(polygons,map)
 %  Output :
 %       simplPolygons: The simplified polygon.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic

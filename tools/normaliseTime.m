@@ -12,7 +12,7 @@ function array = normaliseTime(array,minTime)
 %     array   : The modified vehicles/pedestrian IDs array after
 %               normalising the timesteps.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     if min(minTime)~=0 || min(array.id)~=0

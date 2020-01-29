@@ -3,13 +3,13 @@
 %
 % Usage: runSimulation
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
 clc; clf; clear; clear global; close all;
 
 fprintf('SMARTER: Simulation Framework for City-Scale Experimentation\n');
-fprintf('Copyright (c) 2018-2019, Ioannis Mavromatis\n');
+fprintf('Copyright (c) 2019-2020, Ioannis Mavromatis\n');
 fprintf('email: ioan.mavromatis@bristol.ac.uk\n\n');
 
 % Load the simulation settings (for further explanation see simSettings.m)

@@ -21,7 +21,7 @@ function [filePos,correctPath,fileName] = findPreprocessed(map,outputMap,BS,str,
 %     correctPath  : The path to the folder to look for all the saved files.
 %     fileName     : A cell structure with the names-of-interest for the
 %                    files to be loaded.
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     global SIMULATOR

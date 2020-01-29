@@ -9,7 +9,7 @@ function colours = generateColours(structure)
 %     typePos   : The array of colours to be used for the given vehicle
 %                 types
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % Create an initial array of colours

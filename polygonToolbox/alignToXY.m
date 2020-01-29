@@ -11,7 +11,7 @@ function outputMap = alignToXY(outputMap)
 %  Output :
 %     outputMap : The map structure with the aligned coordinates.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     global SIMULATOR

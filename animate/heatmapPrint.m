@@ -18,7 +18,7 @@ function heatmapPrint(outputMap,map,highestRSSValue,chosenBSpos,potBSPos,tilesID
 %     tilesID         : The IDs of the tiles to fill with color, when the
 %                       heatmap is plotted
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     clf

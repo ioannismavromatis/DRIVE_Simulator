@@ -22,7 +22,7 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes ] =...
 %     sortedIndexes  : The sorted indexes for the tile close to BS, given
 %                      from the closest to the furthest one.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     global SIMULATOR

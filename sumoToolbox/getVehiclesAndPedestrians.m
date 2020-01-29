@@ -16,7 +16,7 @@ function [vehicles,pedestrians] = getVehiclesAndPedestrians(sumo,vehicleIDs,pede
 %     pedestrians   : Array containing all the information about the
 %                     pedestrians for the given timestep.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
    
     vehicles = [];

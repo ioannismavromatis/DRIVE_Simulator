@@ -5,7 +5,7 @@ function testMapPlot(output,shape, buildingsIn)
 %  tiles/areas, and finally the buildings that are withing the areas of the
 %  map (this is optional and only when the map areas are calculated).
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     clf
     mapPrint(output)

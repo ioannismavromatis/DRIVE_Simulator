@@ -19,7 +19,7 @@ function [distanceVehicle,idxVehicle,distancePedestrian,idxPedestrian,usersPerAr
 %     usersPerArea    : The sum of the indoor user, the vehicles and the
 %                       pedestrians for a given area on the map.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     distanceVehicle = [];

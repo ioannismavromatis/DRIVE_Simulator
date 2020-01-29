@@ -3,7 +3,7 @@
 %  simulation framework. The simulation parameters referring to the
 %  communication planes can be found under ratToolbox/available.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
 %% Verbosity level of the simulation -- affects the number of messages printed on the command prompt

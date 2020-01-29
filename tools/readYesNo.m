@@ -8,7 +8,7 @@ function output = readYesNo(text, default,loadStr)
 %     loadStr  : If loadStr is given, then it is checked whether the input
 %                from the user will be skipped choosing the default value.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
     
     global SIMULATOR

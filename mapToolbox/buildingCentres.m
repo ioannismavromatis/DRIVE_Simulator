@@ -10,7 +10,7 @@ function outputMap = buildingCentres(outputMap)
 %  Output :
 %     outputMap : The map structure with the building incentres.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % Deactivate the warning from delaunay triangulation to avoid flooding

@@ -13,7 +13,7 @@ function outputArray = polygonAddition(polygonArray,id,counter)
 %  Output :
 %     outputArray  : The concatenated polygon array.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     shape = cell2mat(traci.polygon.getShape(id));

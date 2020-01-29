@@ -8,7 +8,7 @@ function buildings = add3rdDimension(buildings)
 %  Output :
 %     outputMap : The buildings polygon represented in 3D.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % randomly give a height for each building

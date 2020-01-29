@@ -16,7 +16,7 @@ function [signalLossLos,signalReceivedLos,signalLossNLos,signalReceivedNLos] = u
 %    signalLossNLos     : The signal loss for the NLOS distances (in dBm).
 %    signalReceivedNLos : The signal received for the NLOS distances (in dBm).
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     % The LOS model

@@ -9,7 +9,7 @@ function newPolygon = testPolygonPlot(polygon)
 %  Output :
 %     newPolygon : The polygon that can be plotted (after manipulation).
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     changeIndexes = diff(polygon(:,1))~=0;

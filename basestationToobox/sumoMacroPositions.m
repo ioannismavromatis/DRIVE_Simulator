@@ -17,7 +17,7 @@ function [ potentialPos, mountedBuilding ] = sumoMacroPositions( outputMap, map 
 %                       function.
 %     mountedBuilding : The ID of the building that each BS is mounted to.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     warning('off','MATLAB:delaunayTriangulation:DupPtsWarnId');

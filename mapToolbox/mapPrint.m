@@ -10,7 +10,7 @@ function mapPrint( outputMap, potRSUPos )
 %     potRSUPos  : If the potential positions are provided when the
 %                  function is called, they will be printed on top of the map.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
 %     changeIndexes = diff(outputMap.roadsLine(:,1))~=0;

@@ -22,7 +22,7 @@ function [losRSS,nLosRSS,rssAll,potentialPos] = updateRSS(losNlosStatus,distance
 %     potentialPos   : Updating the linkbudget for each potential BS in the
 %                      system.
 %
-% Copyright (c) 2018-2019, Ioannis Mavromatis
+% Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
     tic
