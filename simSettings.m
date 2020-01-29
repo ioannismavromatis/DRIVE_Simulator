@@ -22,7 +22,7 @@ SIMULATOR.load = 2; % Choose if the preprocessed files will be loaded - 0 proces
 SIMULATOR.pathPreprocessed = './mobilityFiles/preprocessedFiles';
 
 %% SUMO Settings
-sumo.routeFile = './mobilityFiles/sumoFiles/smartJunction/smartJunction.sumocfg';
+sumo.routeFile = './mobilityFiles/sumoFiles/londonSmall/londonSmall.sumocfg';
 sumo.maxVehicleNumber = 200; % maximum number of vehicles per timestep - set to zero if all vehicles are to be considered
 sumo.startTime = 0;
 sumo.endTime = 200;
@@ -34,10 +34,10 @@ sumo.vehicleTypes= {'Ambulance';'Passenger'};
 sumo.vehicleTypeAbbreviation= {'amb' ; 'pas'};
 
 %% Map Settings
-map.file = './mobilityFiles/sumoFiles/smartJunction/smartJunction.osm.xml'; % manhattanLarge - londonSmall - smartJunction
+map.file = './mobilityFiles/sumoFiles/londonSmall/londonSmall.osm.xml'; % manhattanLarge - londonSmall - smartJunction
 map.simplificationTolerance = 10;
 map.edgeTolerance = 100;
-map.tileSize = 4; % for square tiles: length of side - for hexagons: length of short diagonal
+map.tileSize = 20; % for square tiles: length of side - for hexagons: length of short diagonal
 map.tileShape = 2; % give 1 for hexagon and 2 for square
 map.area = 200; % give the size of the map tiles to be processed or give 0
                  % to be ignored  --- for square areas: length of side - for 

@@ -55,7 +55,10 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes ] =...
         parallelise = SIMULATOR.parallelWorkers;
     end
     
-    parfor (i = 1:length(sortedIndexes),parallelise)
+    N = length(sortedIndexes);
+    WaitMessage = parfor_wait(N, 'Waitbar', true);
+    
+    parfor (i = 1:length(sortedIndexes),parallelise) 
         if ~isempty(sortedIndexes{i})
             refine = 1;
             refinementValue = refinementValueDefault;
@@ -111,7 +114,13 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes ] =...
                     losNlosCalculation(sortedIndexes{i},raysToTest,buildingsToTest);
             end
         end
+        
+        WaitMessage.Send;
+        
     end
+    
+    F = findall(0,'type','figure','tag','TMWWaitbar');
+    delete(F)
     
     if strcmp(BS.(ratName).ratType,'macro')
         verbose('Finding the LOS tiles for each potential macrocell BS position took %f seconds.', toc);

@@ -52,6 +52,7 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
         
         % Identify the potential positions for the different modes (OSM-SUMO)
         % and types of cells.
+        
         for i = 1:length(BS.rats)
             if strcmp(BS.(BS.rats{i}).ratType,'femto')
                 if SIMULATOR.map == 0
@@ -71,6 +72,9 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
                potentialPos = addRATPolicy(potentialPos,BS,BS.rats{i},linkBudget);
             end
         end
+        
+        F = findall(0,'type','figure','tag','TMWWaitbar');
+        delete(F)
         
         % Save the identified positions in an new file
         saveFile = readYesNo('Do you want to save the potential BS positions file?', 'Y');

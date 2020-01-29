@@ -20,11 +20,17 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
     tic
     polyObj = polyshape();
 
-% Find all the junctions on the map in order to take the potential BS
-% positions
     warning('off', 'MATLAB:polyshape:boundary3Points')
     junctionIDs = traci.junction.getIDList();
+    laneIDs = traci.lane.getIDList();
+    
+    N = length(junctionIDs) + length(laneIDs);
+    WaitMessage = parfor_wait(N, 'Waitbar', true);
+    
+% Find all the junctions on the map in order to take the potential BS
+% positions
     for i = 1:length(junctionIDs)
+        WaitMessage.Send;
         shape = traci.junction.getShape(junctionIDs{i});
         polyObjTmp = polyshape();
         x = [];
@@ -46,8 +52,8 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
 % basestations equally spaced on the road.
     potentialPos = [];
     lamppostPos = [];
-    laneIDs = traci.lane.getIDList();
     for i=1:length(laneIDs)
+        WaitMessage.Send;
         shape = traci.lane.getShape(laneIDs{i});
         l = length(shape);
         shapeMatrix = cell2mat(shape);
@@ -112,6 +118,9 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
 %     hold on
 %     plot(potentialPos(:,2),potentialPos(:,1),'ro')
 
+    F = findall(0,'type','figure','tag','TMWWaitbar');
+    delete(F)
+    
     verbose('Calculating the potential femtocell basestation positions took: %f seconds.', toc);
 end
 

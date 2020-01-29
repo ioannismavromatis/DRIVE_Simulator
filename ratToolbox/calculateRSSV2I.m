@@ -53,7 +53,7 @@ function [losRSS,nLosRSS,rssAll] = ...
                 idxToNotConsider = length(nLosTilesDistance);
             end
             nLosPos = [];
-            if idxToNotConsider~=0
+            if idxToNotConsider~=0 && ~isempty(potentialBSPos.linkBudget(i).distanceNLos)
                 [~,nLosPos] = ismember(nLosTilesDistance(1:idxToNotConsider),potentialBSPos.linkBudget(i).distanceNLos);
             end
             RSSNLos = potentialBSPos.linkBudget(i).signalReceivedNLos(nLosPos);

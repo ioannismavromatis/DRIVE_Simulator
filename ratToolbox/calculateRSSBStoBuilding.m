@@ -26,9 +26,6 @@ function [distanceBuilding, sortedIndexes, rssAll] = ...
 
     global SIMULATOR
     
-    % find the maximum NLOS distance to filter the RSS values later
-    maxNlosDistance = potentialPos.linkBudget(1).distanceNLos(end);
-
     % calculate all the distances and sort them based on their index
     [ distanceBuilding, sortedIndexes] = pdist2([ outputMap.buildingIncentre(:,3) outputMap.buildingIncentre(:,2) outputMap.buildingIncentre(:,4)],...
         [ potentialPos.pos(:,2) potentialPos.pos(:,1) potentialPos.pos(:,3) ],'euclidean','Radius',BS.(ratName).maxTXDistance);
@@ -39,6 +36,16 @@ function [distanceBuilding, sortedIndexes, rssAll] = ...
         distanceBuilding = cellfun(@(x)round(x,1),distanceBuilding,'UniformOutput',false);
     else
         distanceBuilding = cellfun(@(x)round(x,0),distanceBuilding,'UniformOutput',false);
+    end
+    
+    % find the maximum NLOS distance to filter the RSS values later
+    if ~isempty(potentialPos.linkBudget(1).distanceNLos)
+        maxNlosDistance = potentialPos.linkBudget(1).distanceNLos(end);
+    else
+        for i = 1:length(distanceBuilding)
+            rssAll{i} = [];
+        end
+        return
     end
 
     % find the RSS values for all the calculated distances

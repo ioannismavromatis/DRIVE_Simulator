@@ -46,6 +46,9 @@ function [ potentialPos, mountedBuilding ] = sumoMacroPositions( outputMap, map 
     % Find the closest building to the existing basestation positions
     [ ~, cornerID ] = pdist2([outputMap.buildings(:,3),outputMap.buildings(:,2)],[potentialPosInitial(:,2),potentialPosInitial(:,1)],'euclidean','SMALLEST',1);
     
+    N = length(cornerID);
+    WaitMessage = parfor_wait(N, 'Waitbar', true);
+    
     % Using delaunay triangulation, take the incentre of the polygon and
     % make that as the new basestation position. By that, the macrocell
     % basestation is placed at the centre of the building. The basestation
@@ -64,6 +67,10 @@ function [ potentialPos, mountedBuilding ] = sumoMacroPositions( outputMap, map 
 %     plot(potentialPosInitial(:,2),potentialPosInitial(:,1),'o','MarkerSize',10)
 %     hold on
 %     plot(potentialPos(:,2),potentialPos(:,1),'o','MarkerSize',10)
+    
+    WaitMessage.Send; 
+    F = findall(0,'type','figure','tag','TMWWaitbar');
+    delete(F)
     
     verbose('Calculating the potential macrocell basestation positions took: %f seconds.', toc);
 end

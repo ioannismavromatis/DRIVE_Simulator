@@ -45,7 +45,11 @@ function [losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes] = losNLo
         buildingIds{i} = unique(outputMap.buildings(sortedIndicesBuildings{i},1));
     end
 
+    N = length(sortedIndexes);
+    WaitMessage = parfor_wait(N, 'Waitbar', true);
+   
     parfor (i = 1:length(sortedIndexes),SIMULATOR.parallelWorkers)
+        WaitMessage.Send;
         if ~isempty(sortedIndexes{i})
             % Find the the "rays" that should be tested with the buildings polygon
             % A ray is defined as the link between a BS and the incentre of a
@@ -82,6 +86,8 @@ function [losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes] = losNLo
         end
     end
     
+    F = findall(0,'type','figure','tag','TMWWaitbar');
+    delete(F)
     verbose('Finding all the LOS and NLOS links between all the pairs of tiles took: %f seconds.', toc); 
 end
 
