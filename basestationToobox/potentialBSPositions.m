@@ -71,6 +71,15 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
                potentialPos.(BS.rats{i}).mountedBuildings = mountedBuildings;
                potentialPos = addRATPolicy(potentialPos,BS,BS.rats{i},linkBudget);
             end
+            
+            % Find the map area that the potential BS belongs to
+            potentialPos.(BS.rats{i}).withinArea = zeros(length(potentialPos.(BS.rats{i}).pos),1);
+            [ l,~ ] = size(outputMap.areaVerticesX);
+            for area = 1:l
+                in = inpoly2(potentialPos.(BS.rats{i}).pos(:,1:2), [outputMap.areaVerticesY(area,:)' outputMap.areaVerticesX(area,:)']);
+                potentialPos.(BS.rats{i}).withinArea(in) = area;
+            end
+            
         end
         
         F = findall(0,'type','figure','tag','TMWWaitbar');

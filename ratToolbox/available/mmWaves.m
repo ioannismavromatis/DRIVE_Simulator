@@ -1,7 +1,7 @@
 %% MmWave links settings
 ratName = 'mmWaves';
 ratType = 'femto';
-pathLossModel = 'shadowFading';
+pathLossModel = 'freespace';
 cFrequency = 60000000000; % carrier frequency given in Hz
 txPower = 20; % given in dBm
 noiseFloor = -174; % noise floor

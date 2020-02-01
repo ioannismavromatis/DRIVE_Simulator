@@ -43,6 +43,12 @@ function runMain( map, sumo, BS, linkBudget )
         distanceBuildings, sortedIndexesBuildings, rssBuildings ] = ...
                 perRATTiles(outputMap,potentialBSPos,BS,map);
 
+            
+    [ choseRSUposGA,tilesCoveredGA,tilesCoveredGAIDs,highestRSSGA ] = ...
+        bsPlacement(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,'mmWaves');
+
+            
+            
     if strcmp(SIMULATOR.scenario,'osm')
         % Return empty arrays if the OSM functionality is chosen -- The
         % vehicular and pedestrian mobilities will not be parsed.

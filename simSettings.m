@@ -13,13 +13,15 @@ VERBOSELEVEL = 1; % Use 0 to print nothing, 1 to print some
                                     
 %% Simulator Settings              
 global SIMULATOR 
-SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e. 'v2v', 'sumo', 'osm'
+SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e., 'v2v', 'sumo', 'osm'
+SIMULATOR.bsPlacement = 'ga'; % three options provied, i.e., 'ga', 'random', 'greedy'
 SIMULATOR.parallelRun = 1;
 SIMULATOR.parallelWorkers = 8;
 SIMULATOR.sumoPath = '/usr/local/bin';
 SIMULATOR.map = 1; % give 0 to parse an OSM map, 1 to parse map from SUMO
 SIMULATOR.load = 2; % Choose if the preprocessed files will be loaded - 0 process from scratch, 1 ask user, 2 load all (if existing)
 SIMULATOR.pathPreprocessed = './mobilityFiles/preprocessedFiles';
+SIMULATOR.gaSeed = 5; % The seed to be used for the Genetic Algorithm (for the BS placement)
 
 %% SUMO Settings
 sumo.routeFile = './mobilityFiles/sumoFiles/londonSmall/londonSmall.sumocfg';
@@ -48,6 +50,7 @@ map.densitySimplification = 50;
 
 %% Structures used for the basestations and the linkbudget analysis
 BS = struct;
+BS.toleranceParam = 0.10; % value between [0,1]
 linkBudget = struct;
 
 %% Constants used during the simulation time
