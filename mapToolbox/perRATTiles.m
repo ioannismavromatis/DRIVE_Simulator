@@ -45,7 +45,7 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
     if usePrepFile
         % Load the stored los/nlos links file.
         load([filePos.folder '/' filePos.name])
-        fprintf('File %s with all the los/nlos links was successfully loaded.\n', filePos.name);
+        fprintf('File %s with all the LOS/NLOS links was successfully loaded.\n', filePos.name);
     else
         for i = 1:length(BS.rats)
 

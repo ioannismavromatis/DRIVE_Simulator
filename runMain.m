@@ -45,7 +45,7 @@ function runMain( map, sumo, BS, linkBudget )
 
             
     [ choseRSUposGA,tilesCoveredGA,tilesCoveredGAIDs,highestRSSGA ] = ...
-        bsPlacement(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,'mmWaves');
+        bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,'mmWaves');
 
             
             
