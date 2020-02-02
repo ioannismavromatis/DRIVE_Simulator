@@ -1,45 +1,55 @@
 function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ]  = greedyAddition(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName)
-%GREEDYADDITIONCHOSENRSUPOSITIONS Summary of this function goes here
-%   Detailed explanation goes here
-    
+%greedyAddition A greedy addition algorithm to choose the best BS positions
+%  on the map. The BS that provides the better coverage (most tiles in LOS
+%  is chosen every time), until the required number of tiles is reached.
+%
+%  Input  :
+%     BS           : Structure to be filled with the basestation information
+%     potentialPos : All the potential positions generated from this
+%                      function for all the different RATs.
+%     losIDsPerRAT : Tile IDs that are in LOS with each BS.
+%     initialLosTilesRSS : The received signal strength for the LOS tiles.
+%     outputMap    : The map structure extracted from the map file or loaded
+%                    from the preprocessed folder and updated until this point.
+%     ratName      : The name of RAT that will be used in this function.
+%
+%  Output :
+%     chosenRSUpos    : The IDs of the chosen BSs.
+%     tilesCovered    : The tiles covered by the selected BSs.
+%     tilesCoveredIDs : The tile IDs that are covered.
+%     highestRSS      : The highest RSS for the chosen BSs (per tile). 
+%
+% Copyright (c) 2019-2020, Ioannis Mavromatis
+% email: ioan.mavromatis@bristol.ac.uk    
+
     tic
+    ratPos = find(strcmp(ratName,BS.rats)==1);
     
-	[ ~, maxIndex ] =  max(cellfun('length', losTileIDs));
-    allTilesSystem=reshape(cell2mat(losTileIDs),[],1);
+	[ ~, maxIndex ] =  max(cellfun('length', losIDsPerRAT{ratPos}));
+    allTilesSystem=reshape(cell2mat(losIDsPerRAT{ratPos}),[],1);
     allTilesSystem = unique(allTilesSystem);
-    tilesToCover = ceil((1-RSU.toleranceParam)*length(allTilesSystem));
+    tilesToCover = ceil((1-BS.toleranceParam)*length(allTilesSystem));
    
-    cRSUpos(1,:) = [ potRSUPositions(maxIndex,:) maxIndex ];
-    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(cRSUpos(:,3),losTileIDs);
+    chosenRSUpos(1) = maxIndex;
+    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losIDsPerRAT{ratPos});
    
     while tilesCovered<tilesToCover
         tilesCoveredTmp = [];
-        posToTest = logical(1:length(potRSUPositions));
-        posToTest(cRSUpos(:,3))=false;
-        tmp = cRSUpos(:,3);
-        ttt = find(posToTest==1);
-        for i = 1:length(ttt)
-            tmp(length(cRSUpos(:,3))+1) = ttt(i);
-            [ tilesCoveredTmp(i), ~ ] = tilesNumCovered(tmp,losTileIDs);
-        end
-        [dd, maxIdx] = max(tilesCoveredTmp);
-        [ row, ~ ] = size(cRSUpos);
-        cRSUpos(row+1,:) = [ potRSUPositions(ttt(maxIdx),:) ttt(maxIdx) ];
+        posToTest = logical(1:length(potentialBSPos.(ratName).pos));
+        posToTest(chosenRSUpos)=false;
         
-        [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(cRSUpos(:,3),losTileIDs);
-        [ ~, ~,highRSS ] = highestRSSValues(cRSUpos(:,3),losTileIDs, rssTile, tileWithinEdgeIDs);
-        meanRSS = mean(highRSS);
+        for i = 1:length(posToTest)
+            if posToTest(i)
+                [ tilesCoveredTmp(i), ~ ] = tilesNumCovered([chosenRSUpos i],losIDsPerRAT{ratPos});
+            end
+        end
+        
+        [~, maxIdx] = max(tilesCoveredTmp);
+        chosenRSUpos(length(chosenRSUpos)+1) = maxIdx;
+        
+        [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losIDsPerRAT{ratPos});
+        highestRSS = highestRSSBSPlacement(chosenRSUpos,losIDsPerRAT{ratPos}, initialLosTilesRSS{ratPos});
     end    
     
-    if ~isempty(losTileIDs{maxIndex})
-        chosenRSUpos = cRSUpos(:,3);
-    else
-        chosenRSUpos = cRSUpos(1:end-1,3);
-    end
-    
-    [ ~, ~,highestRSS ] = highestRSSValues(cRSUpos(:,3),losTileIDs, rssTile, tileWithinEdgeIDs);
-    
-    if simulator.verboseLevel >= 1
-        fprintf('Finding the best RSUs using Greedy Addition took %f seconds.\n', toc);
-    end
+    verbose('Finding the best RSUs using Greedy Addition took %f seconds.', toc);
 end
