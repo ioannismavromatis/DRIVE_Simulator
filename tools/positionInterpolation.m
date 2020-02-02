@@ -12,6 +12,7 @@ function node = positionInterpolation(structure)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk  
+% email: ioannis.mavromatis@toshiba-trel.com  
 
     if isempty(fieldnames(structure))
         node = [];

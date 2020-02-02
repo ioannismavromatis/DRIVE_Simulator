@@ -26,6 +26,7 @@ function outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinate
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     tic
     

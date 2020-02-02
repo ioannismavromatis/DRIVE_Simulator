@@ -17,6 +17,7 @@ function outputMap = mapTiles(outputMap,map)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     if map.tileShape == 1
         outputMap = smallerAreasHexagons(outputMap,map.tileSize);

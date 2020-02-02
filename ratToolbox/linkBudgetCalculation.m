@@ -10,6 +10,7 @@ function linkBudget = linkBudgetCalculation(BS)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
     
     if strcmp(BS.ratType,'femto')
         step = 0.1;

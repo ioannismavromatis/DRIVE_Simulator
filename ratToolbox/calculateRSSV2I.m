@@ -24,6 +24,7 @@ function [losRSS,nLosRSS,rssAll] = ...
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     tic
     % Find the received power at each tile found before - use a the

@@ -24,6 +24,7 @@ function [losRSS,nLosRSS,rssAll,potentialPos] = updateRSS(losNlosStatus,distance
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     tic
     

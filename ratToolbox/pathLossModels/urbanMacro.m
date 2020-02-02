@@ -18,6 +18,7 @@ function [signalLossLos,signalReceivedLos,signalLossNLos,signalReceivedNLos] = u
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     % The LOS model
     Dhb = 20; %Average antenna heigth (in meters) from the average rooftop level.

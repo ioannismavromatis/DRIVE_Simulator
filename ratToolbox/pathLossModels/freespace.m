@@ -15,6 +15,7 @@ function [signalLossLos,signalReceivedLos,signalLossNLos,signalReceivedNLos] = f
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     global SIMULATOR
     signalLossLos = 20*log10(distance) + 20*log10(BS.cFrequency) + ...

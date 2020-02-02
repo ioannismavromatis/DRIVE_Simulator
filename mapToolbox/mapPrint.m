@@ -12,6 +12,7 @@ function mapPrint( outputMap, potRSUPos )
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
 %     changeIndexes = diff(outputMap.roadsLine(:,1))~=0;
 %     changeIndexes = [ 0 ; changeIndexes ];

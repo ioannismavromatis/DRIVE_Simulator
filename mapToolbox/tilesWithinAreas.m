@@ -14,6 +14,7 @@ function outputMap = tilesWithinAreas(outputMap)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     % Find the incentres that are outside of the building polygons
     inIdx = inpoly2(outputMap.inCentresTile(:,1:2), [ outputMap.nodes(:,3) outputMap.nodes(:,2) ], outputMap.edges);

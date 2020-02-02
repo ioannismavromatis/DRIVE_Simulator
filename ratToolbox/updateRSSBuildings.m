@@ -16,6 +16,7 @@ function rssAll = updateRSSBuildings(distanceBuilding,potentialPos,BS,ratName)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     global SIMULATOR
     

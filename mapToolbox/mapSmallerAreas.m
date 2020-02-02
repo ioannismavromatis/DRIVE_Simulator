@@ -15,6 +15,7 @@ function outputMap = mapSmallerAreas(outputMap,map)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     if map.areaShape == 1
         % if a hexagonal area shape was chosen

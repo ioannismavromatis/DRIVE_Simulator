@@ -22,6 +22,7 @@ function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     global SIMULATOR VERBOSELEVEL
         % Start by not using the pre-processed file - this can be changed later.

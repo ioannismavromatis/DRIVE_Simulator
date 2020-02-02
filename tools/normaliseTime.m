@@ -14,6 +14,7 @@ function array = normaliseTime(array,minTime)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     if min(minTime)~=0 || min(array.id)~=0
         minID = min(array.id);

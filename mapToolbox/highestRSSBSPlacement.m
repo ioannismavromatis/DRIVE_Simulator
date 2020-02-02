@@ -13,6 +13,7 @@ function highRSSValue = highestRSSBSPlacement(chosenRSUpos,losTileIDs, rssTile)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
     % Initialise cumSum with zeros and calculate all the RSS values for all
     % the chose RSU positions

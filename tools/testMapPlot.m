@@ -7,6 +7,7 @@ function testMapPlot(output,shape, buildingsIn)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
     clf
     mapPrint(output)
     alpha(0.1)

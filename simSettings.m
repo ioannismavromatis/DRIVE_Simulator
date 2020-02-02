@@ -5,6 +5,7 @@
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
+% email: ioannis.mavromatis@toshiba-trel.com
 
 %% Verbosity level of the simulation -- affects the number of messages printed on the command prompt
 global VERBOSELEVEL
