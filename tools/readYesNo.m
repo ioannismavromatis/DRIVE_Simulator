@@ -28,45 +28,29 @@ function output = readYesNo(text, default,loadStr)
         end
     end
     
-    textInput = [ text ' Y/N [' default ']:'  ];
-      
-    t = timer('ExecutionMode', 'singleShot', 'StartDelay', 20, 'TimerFcn', @pressEnter);
-    start(t)
-    if java.lang.System.getProperty( 'java.awt.headless' )
-        output = default;
+    if strcmp(default,'y') || strcmp(default,'Y')
+        default = 'Yes';
+    elseif strcmp(default,'n') || strcmp(default,'N')
+        default = 'No';
     else
-        output = input(textInput, 's');
+        fprintf('The chosen input value is incorrect!\n')
+        error('Please, give either Y/y or N/n when calling the readYesNo function!.');
     end
     
-    if isempty(output)
-        if (default == 'Y')
-            output = 'y';
-        else
-            output = 'n';
-        end
+    title = [ '"' default '" is chosen after: ' ];
+    dlgQuestion = text;
+    choise = questdlg_timer(10,dlgQuestion,title,'Yes','No', default);
+    
+    while isempty(choise)
+        disp('Something went wrong. Please choose again.');
+        choise = questdlg_timer(10,dlgQuestion,title,'Yes','No', default);
     end
     
-    while ~(isequal(output,'Y') || isequal(output,'y')  || isequal(output,'N') || isequal(output,'n'))
-        output = input('Invalid input. Please input either "Y/y" or "N/n": ', 's');
-    end
-    
-    if isequal(output,'Y') || isequal(output,'y')
+    if strcmp(choise,'Yes')
         output = 1;
     else
         output = 0;
     end
-    stop(t)
-    delete(t)
-end
-
-function pressEnter(hObj, event)
-  import java.awt.*;
-  import java.awt.event.*;
-  rob = Robot;
-  rob.keyPress(KeyEvent.VK_ENTER)
-  rob.keyRelease(KeyEvent.VK_ENTER)
-  pause(0.5)
-  verbose('Input timer timeout. The default value was chosen.')
 end
 
 function v = defaultToValue(default)

@@ -23,9 +23,10 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolver(BS
 
     global SIMULATOR 
     
+    ratPos = find(strcmp(ratName,BS.rats)==1);
     for seed = 1:SIMULATOR.gaSeed
         tic
-        [ chosenRSUposTmp{seed}, tilesCoveredTmp{seed},tilesCoveredIDsTmp{seed},highestRSSTmp{seed} ] = gaSolverMap(BS, potentialBSPos.(ratName).pos, losIDsPerRAT{2}, initialLosTilesRSS{2}, outputMap, seed);
+        [ chosenRSUposTmp{seed}, tilesCoveredTmp{seed},tilesCoveredIDsTmp{seed},highestRSSTmp{seed} ] = gaSolverMap(BS, potentialBSPos.(ratName).pos, losIDsPerRAT{ratPos}, initialLosTilesRSS{ratPos}, outputMap, seed);
         verbose('The Genetic Algorithm solver took %f seconds.', toc);
     end
     [~,yy] = min(cellfun('length',chosenRSUposTmp));

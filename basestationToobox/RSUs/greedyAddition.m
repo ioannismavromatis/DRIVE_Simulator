@@ -1,4 +1,4 @@
-function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ]  = greedyAdditionChosenRSUpositions(potRSUPositions,losTileIDs,RSU,rssTile,tileWithinEdgeIDs,simulator)
+function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ]  = greedyAddition(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName)
 %GREEDYADDITIONCHOSENRSUPOSITIONS Summary of this function goes here
 %   Detailed explanation goes here
     

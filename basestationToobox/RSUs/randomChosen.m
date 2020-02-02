@@ -1,4 +1,3 @@
-% function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChosen(outputMap,potRSUPositions,RSU,chosenRSU,losTileIDs,rssTile,tileWithinEdgeIDs,simulator)
 function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChosen(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName)
 %randomChosen This function chooses a random number of basestations, based
 %   on the number given by the user. This function can be used for
@@ -28,6 +27,8 @@ function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChos
     
     tic
     
+    ratPos = find(strcmp(ratName,BS.rats)==1);
+    
     noOfRSUsToDeploy = SIMULATOR.randomToChoose;
     [ noOfBSs, ~ ] = size(potentialBSPos.(ratName).pos);
     if noOfRSUsToDeploy > noOfBSs
@@ -39,10 +40,10 @@ function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChos
     chosenRSUpos = randsample(noOfBSs,noOfRSUsToDeploy);
         
     % Calculate the number of covered tiles in the system
-    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losIDsPerRAT{2});
+    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losIDsPerRAT{ratPos});
     
     % Find the highest RSS per tile
-    highestRSS = highestRSSBSPlacement(chosenRSUpos,losIDsPerRAT{2}, initialLosTilesRSS{2});
+    highestRSS = highestRSSBSPlacement(chosenRSUpos,losIDsPerRAT{ratPos}, initialLosTilesRSS{ratPos});
     
     verbose('The Random Basestation Selection took %f seconds.', toc);
 end
