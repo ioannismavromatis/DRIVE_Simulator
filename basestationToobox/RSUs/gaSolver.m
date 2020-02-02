@@ -73,7 +73,7 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolverMap
     
     chosenRSUpos = find(x==1);
     [ tilesCovered,tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losTileIDs);
-    highestRSS = highestRSSGA(chosenRSUpos,losTileIDs,rssTile);
+    highestRSS = highestRSSBSPlacement(chosenRSUpos,losTileIDs,rssTile);
 
 end
 
@@ -83,7 +83,7 @@ function [c, ceq] = nlConstFun(e, N, t, losTileIDs, RSS_TH, rssTile)
     gammaF = tilesNumCovered(find(e==1),losTileIDs);
     c_1 = -(gammaF - t*N);
     
-    highestRSS = highestRSSGA(find(e==1),losTileIDs,rssTile);
+    highestRSS = highestRSSBSPlacement(find(e==1),losTileIDs,rssTile);
   
     tmp_1 = sort(highestRSS,'descend');
 

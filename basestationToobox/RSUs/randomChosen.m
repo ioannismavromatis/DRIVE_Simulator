@@ -1,32 +1,48 @@
-function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChosenRSUpositions(outputMap,potRSUPositions,RSU,chosenRSU,losTileIDs,rssTile,tileWithinEdgeIDs,simulator)
-%RANDOMCHOSENRSUPOSITIONS Summary of this function goes here
-%   Detailed explanation goes here
+% function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChosen(outputMap,potRSUPositions,RSU,chosenRSU,losTileIDs,rssTile,tileWithinEdgeIDs,simulator)
+function [chosenRSUpos, tilesCovered, tilesCoveredIDs, highestRSS ] = randomChosen(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName)
+%randomChosen This function chooses a random number of basestations, based
+%   on the number given by the user. This function can be used for
+%   debugging purposes as it generates the fastest results between the
+%   provided BS placement algorithms. 
+%
+%  Input  :
+%     BS           : Structure to be filled with the basestation information
+%     potentialPos : All the potential positions generated from this
+%                      function for all the different RATs.
+%     losIDsPerRAT : Tile IDs that are in LOS with each BS.
+%     initialLosTilesRSS : The received signal strength for the LOS tiles.
+%     outputMap    : The map structure extracted from the map file or loaded
+%                    from the preprocessed folder and updated until this point.
+%     ratName      : The name of RAT that will be used in this function.
+%
+%  Output :
+%     chosenRSUpos    : The IDs of the chosen BSs.
+%     tilesCovered    : The tiles covered by the selected BSs.
+%     tilesCoveredIDs : The tile IDs that are covered.
+%     highestRSS      : The highest RSS for the chosen BSs (per tile). 
+%
+% Copyright (c) 2019-2020, Ioannis Mavromatis
+% email: ioan.mavromatis@bristol.ac.uk
 
+    global SIMULATOR
+    
     tic
-    % Surface of coverage. Given from the circle surface equation x = pi*r^2
-    rangeSurface = pi*RSU.distanceThreshold^2; 
-    % Calculate the number of RSUs to be deployed based on the total map size
-    yHalfCircles = ceil(outputMap.ySize/(2*RSU.distanceThreshold));
-    xHalfCircles = ceil(outputMap.xSize/(2*RSU.distanceThreshold));
     
-    tangledHalfCircles = 2*yHalfCircles + 2*xHalfCircles;
-    
-    surfaceHalfCircles = (tangledHalfCircles*pi*RSU.distanceThreshold^2)/2;
-    
-    remainingSurface = outputMap.totalMapSize - surfaceHalfCircles;
-    numberOfRSUsToDeploy = floor(remainingSurface/rangeSurface) + tangledHalfCircles/2;
-
-%     chosenRSUpos = randi([1,length(potRSUPositions)], numberOfRSUsToDeploy,1);
-    
-    % Use the length of the Optimisation Algorithm
-    chosenRSUpos = randi([1,length(potRSUPositions)], length(chosenRSU),1);
-    
-    % Calculate the number of covered tiles in the system
-    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losTileIDs);
-    
-    [ ~,~,highestRSS ] = highestRSSValues(chosenRSUpos,losTileIDs, rssTile, tileWithinEdgeIDs);
-    
-    if simulator.verboseLevel >= 1
-        fprintf('Finding the best RSUs using Random Placement took %f seconds.\n', toc);
+    noOfRSUsToDeploy = SIMULATOR.randomToChoose;
+    [ noOfBSs, ~ ] = size(potentialBSPos.(ratName).pos);
+    if noOfRSUsToDeploy > noOfBSs
+        noOfRSUsToDeploy = noOfBSs;
     end
+    
+    % Sample the potential BS positions and get a number of basestations to
+    % deploy.
+    chosenRSUpos = randsample(noOfBSs,noOfRSUsToDeploy);
+        
+    % Calculate the number of covered tiles in the system
+    [ tilesCovered, tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losIDsPerRAT{2});
+    
+    % Find the highest RSS per tile
+    highestRSS = highestRSSBSPlacement(chosenRSUpos,losIDsPerRAT{2}, initialLosTilesRSS{2});
+    
+    verbose('The Random Basestation Selection took %f seconds.', toc);
 end

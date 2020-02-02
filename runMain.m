@@ -42,12 +42,11 @@ function runMain( map, sumo, BS, linkBudget )
         sortedIndexesPerRat, initialLosTilesRSS, initialNLosTilesRSS, initialRssAll, ...
         distanceBuildings, sortedIndexesBuildings, rssBuildings ] = ...
                 perRATTiles(outputMap,potentialBSPos,BS,map);
-
-            
-    [ choseRSUposGA,tilesCoveredGA,tilesCoveredGAIDs,highestRSSGA ] = ...
-        bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,'mmWaves');
-
-            
+    
+    % Find the best positions to deploy a BS (works just for the femtocell
+    % technologies.
+    [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = ...
+        bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS);
             
     if strcmp(SIMULATOR.scenario,'osm')
         % Return empty arrays if the OSM functionality is chosen -- The

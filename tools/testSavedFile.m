@@ -17,13 +17,22 @@ function correct = testSavedFile(filePos,outputMapTmp,BStmp,maptmp,potentialPosT
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
 
+    global SIMULATOR
+    
     load([filePos.folder '/' filePos.name]);
     correctPos = 1;
     if nargin>4
         if ~isequal(potentialPosTmp,potentialBSPos)
             correctPos = 0;
         end
+        if exist('toSave','var')
+            if ~strcmp(SIMULATOR.bsPlacement,toSave)
+                correctPos = 0;
+            end
+        end
     end
+    
+    
     
     if contains(filePos.folder,'osm')
         % when an OSM is loaded, the roadsPolygons field contains NaN

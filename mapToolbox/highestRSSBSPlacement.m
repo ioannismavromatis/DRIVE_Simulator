@@ -1,5 +1,5 @@
-function highRSSValue = highestRSSGA(chosenRSUpos,losTileIDs, rssTile)
-%highestRSSGA For the chosen RSU positions, calculate the highest received
+function highRSSValue = highestRSSBSPlacement(chosenRSUpos,losTileIDs, rssTile)
+%highestRSSBSPlacement For the chosen RSU positions, calculate the highest received
 %   signal strength per tile on the map. This function is being used by the
 %   Genetic Algorithm implementation.
 %

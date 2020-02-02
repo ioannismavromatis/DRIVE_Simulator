@@ -64,7 +64,7 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes, losRSS,
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
-            fileSaveName = [ fileName{end} '_id' num2str(randi(999999)) '_v2v.mat' ];
+            fileSaveName = [ fileName{end} '_' date '_v2v.mat' ];
             fprintf('Saving preprocessed potential V2V file: %s\n', fileSaveName);
             save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','distanceTiles','losNlosStatus',...
                 'sortedIndexes', 'BS', 'map','outputMap','losRSS','nLosRSS','rssAll');

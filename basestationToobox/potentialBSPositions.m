@@ -94,7 +94,7 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
-            fileSaveName = [ fileName{end} '_id' num2str(randi(999999)) '_potentialPos.mat' ];
+            fileSaveName = [ fileName{end} '_' date '_potentialPos.mat' ];
             fprintf('Saving preprocessed potential BS positions file: %s\n', fileSaveName);
             save([correctPath '/' fileSaveName], 'potentialPos', 'outputMap', 'BS', 'map');
         else

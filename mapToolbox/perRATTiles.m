@@ -68,7 +68,7 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
-            fileSaveName = [ fileName{end} '_id' num2str(randi(999999)) '_losNlosRAT.mat' ];
+            fileSaveName = [ fileName{end} '_' date '_losNlosRAT.mat' ];
             fprintf('Saving preprocessed potential losNlosRAT file: %s\n', fileSaveName);
             save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','losNlosStatus','distanceTiles',...
                 'sortedIndexes','losRSS','nLosRSS','rssAll', 'potentialBSPos','outputMap', 'BS', 'map',...

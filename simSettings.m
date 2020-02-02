@@ -14,7 +14,7 @@ VERBOSELEVEL = 1; % Use 0 to print nothing, 1 to print some
 %% Simulator Settings              
 global SIMULATOR 
 SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e., 'v2v', 'sumo', 'osm'
-SIMULATOR.bsPlacement = 'ga'; % three options provied, i.e., 'ga', 'random', 'greedy'
+SIMULATOR.bsPlacement = 'random'; % three options provied, i.e., 'ga', 'random', 'greedy'
 SIMULATOR.parallelRun = 1;
 SIMULATOR.parallelWorkers = 8;
 SIMULATOR.sumoPath = '/usr/local/bin';
@@ -22,6 +22,7 @@ SIMULATOR.map = 1; % give 0 to parse an OSM map, 1 to parse map from SUMO
 SIMULATOR.load = 2; % Choose if the preprocessed files will be loaded - 0 process from scratch, 1 ask user, 2 load all (if existing)
 SIMULATOR.pathPreprocessed = './mobilityFiles/preprocessedFiles';
 SIMULATOR.gaSeed = 5; % The seed to be used for the Genetic Algorithm (for the BS placement)
+SIMULATOR.randomToChoose = 50; % The number of random basestations to be chosen (when using the random BS placement function)
 
 %% SUMO Settings
 sumo.routeFile = './mobilityFiles/sumoFiles/londonSmall/londonSmall.sumocfg';
