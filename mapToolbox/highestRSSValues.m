@@ -60,6 +60,5 @@ function [ bsID, highRSSValue,rssValuetoPlot, losNlos, uniqueIDs, tilesNum ] = h
     bsID(uniqueIDsNot) = -1;
     tilesNum = length(uniqueIDs);
     
-    verbose('Finding all the information about the tiles (highest RSS, LOS/NLOS coverage, etc.) took: %f seconds.', toc); 
 end
 

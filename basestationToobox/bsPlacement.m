@@ -1,4 +1,4 @@
-function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS)
+function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,potentialBSPos,losIDs,nLosIDs,rssAll,sortedIndexes,losNlos)
 %BSPLACEMENT This function executed the chosen algorithm for the BS
 %   placement, chosen by the end user. The three algorithms provided are
 %   just examples of the simulator's functionality. Other algorithms can be
@@ -45,20 +45,25 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = bsPlacement
                 
                 if strcmp(SIMULATOR.bsPlacement,'ga')
                     toSave = 'ga';
-                    [ chosenRSUpos,tilesCovered,tilesCoveredIDs,highestRSS ] =...
-                        gaSolver(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName);
+                    [ chosenBSpos.(ratName),tilesCovered.(ratName),highestRSS.(ratName) ] =...
+                        gaSolver(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName);
                 elseif strcmp(SIMULATOR.bsPlacement,'greedy')
                     toSave = 'greedy';
-                    [ chosenRSUpos,tilesCovered,tilesCoveredIDs,highestRSS ] =...
-                        greedyAddition(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName);
+                    [ chosenBSpos.(ratName),tilesCovered.(ratName),highestRSS.(ratName) ] =...
+                        greedyAddition(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName);
                 elseif strcmp(SIMULATOR.bsPlacement,'random') 
                     toSave = 'random';
-                    [ chosenRSUpos,tilesCovered,tilesCoveredIDs,highestRSS ] =...
-                        randomChosen(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName);
+                    [ chosenBSpos.(ratName),tilesCovered.(ratName),highestRSS.(ratName) ] =...
+                        randomChosen(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName);
                 else
                     disp('Wrong Basestation Placement algorithm was given. Please provide a correct name!')
                     error('Wrong Basestation Placement algorithm.');
                 end
+            else
+                ratName = BS.rats{i};
+                chosenBSpos.(ratName) = (1:length(potentialBSPos.(ratName).pos))';
+                tilesCovered.(ratName) = tilesNumCovered(chosenBSpos.(ratName),losIDs{i},nLosIDs{i});
+                [ ~,highestRSS.(ratName),~,~,~,~ ] = highestRSSValues(chosenBSpos.(ratName),outputMap,sortedIndexes{i}, rssAll{i},losNlos{i});
             end
         end
               
@@ -71,7 +76,7 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = bsPlacement
             hold on
             plot(potentialBSPos.(ratName).pos(:,2),potentialBSPos.(ratName).pos(:,1),'gx','MarkerSize',20,'LineWidth',3)
             hold on
-            plot(potentialBSPos.(ratName).pos(chosenRSUpos,2),potentialBSPos.(ratName).pos(chosenRSUpos,1),'mo','MarkerSize',20,'LineWidth',3)
+            plot(potentialBSPos.(ratName).pos(chosenBSpos,2),potentialBSPos.(ratName).pos(chosenBSpos,1),'mo','MarkerSize',20,'LineWidth',3)
             figure
             cdfplot(highestRSS)
         end
@@ -87,8 +92,8 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = bsPlacement
             % helps with the easier loading later.
             fileSaveName = [ fileName{end} '_' date '_bsPlacement.mat' ];
             fprintf('Saving preprocessed selected basestations to be deployed file: %s\n', fileSaveName);
-            save([correctPath '/' fileSaveName], 'chosenRSUpos','tilesCovered',...
-                'tilesCoveredIDs','highestRSS','potentialBSPos','outputMap', 'BS', 'map',...
+            save([correctPath '/' fileSaveName], 'chosenBSpos','tilesCovered',...
+                'highestRSS','potentialBSPos','outputMap', 'BS', 'map',...
                 'toSave');
         else
             fprintf('The file with all the selected basestations to be deployed will not be saved\n.');

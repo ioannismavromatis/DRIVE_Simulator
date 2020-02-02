@@ -1,4 +1,4 @@
-function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolver(BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS,outputMap,ratName)
+function [ chosenBSPos, tilesCovered, highestRSS ] = gaSolver(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName)
 %gaSolver This function solves the best-placement problem for the potential
 %  RSUs using a genetic algorithm.
 %
@@ -6,16 +6,16 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolver(BS
 %     BS           : Structure to be filled with the basestation information
 %     potentialPos : All the potential positions generated from this
 %                      function for all the different RATs.
-%     losIDsPerRAT : Tile IDs that are in LOS with each BS.
-%     initialLosTilesRSS : The received signal strength for the LOS tiles.
+%     losIDs       : Tile IDs that are in LOS with each BS.
+%     nLosIDs      : Tile IDs that are in NLOS with each BS.
+%     rssAll       : The received signal strength for the LOS tiles.
 %     outputMap    : The map structure extracted from the map file or loaded
 %                    from the preprocessed folder and updated until this point.
 %     ratName      : The name of RAT that will be used in this function.
 %
 %  Output :
-%     chosenRSUpos    : The IDs of the chosen BSs.
+%     chosenBSPos     : The IDs of the chosen BSs.
 %     tilesCovered    : The tiles covered by the selected BSs.
-%     tilesCoveredIDs : The tile IDs that are covered.
 %     highestRSS      : The highest RSS for the chosen BSs (per tile). 
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
@@ -24,19 +24,22 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolver(BS
     global SIMULATOR 
     
     ratPos = find(strcmp(ratName,BS.rats)==1);
-    for seed = 1:SIMULATOR.gaSeed
+    
+    for mySeed = 1:SIMULATOR.gaSeed
         tic
-        [ chosenRSUposTmp{seed}, tilesCoveredTmp{seed},tilesCoveredIDsTmp{seed},highestRSSTmp{seed} ] = gaSolverMap(BS, potentialBSPos.(ratName).pos, losIDsPerRAT{ratPos}, initialLosTilesRSS{ratPos}, outputMap, seed);
+        disp(['Running Genetic Algorithm with seed: ' num2str(mySeed) '/' num2str(SIMULATOR.gaSeed)])
+        [ chosenRSUposTmp{mySeed}, tilesCoveredTmp{mySeed},highestRSSTmp{mySeed} ] = gaSolverMap(BS, potentialBSPos.(ratName).pos, losIDs{ratPos}, nLosIDs{ratPos}, rssAll{ratPos}, outputMap, sortedIndexes{ratPos}, losNlos{ratPos}, mySeed);
         verbose('The Genetic Algorithm solver took %f seconds.', toc);
     end
+    
+    
     [~,yy] = min(cellfun('length',chosenRSUposTmp));
-    chosenRSUpos = chosenRSUposTmp{yy}';
+    chosenBSPos = chosenRSUposTmp{yy}';
     tilesCovered = tilesCoveredTmp{yy}';
-    tilesCoveredIDs = tilesCoveredIDsTmp{yy}';
     highestRSS = highestRSSTmp{yy};
 end
 
-function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolverMap(BS, potRSUPos, losTileIDs, rssTile,outputMap, seed)
+function [ chosenBSPos, tilesCovered,highestRSS ] = gaSolverMap(BS, potRSUPos, losTileIDs, nLosTileIDs, rssTile,outputMap,sortedIndexes,losNlos,seed)
 
     global VERBOSELEVEL
     BS.rssThreshold = -90;
@@ -48,12 +51,12 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolverMap
     
     %   2. NonlinearConstr defines the nonlinear constraints of the problem.
     [N,~] = size(outputMap.inCentresTile);
-    nlConst = @(e)nlConstFun(e, N, 1-(BS.toleranceParam), losTileIDs, BS.rssThreshold, rssTile);
+    nlConst = @(e)nlConstFun(e, N, 1-(BS.toleranceParam), losTileIDs,nLosTileIDs, BS.rssThreshold, rssTile,sortedIndexes,losNlos,outputMap);
     
     %   3. Linear constraints
     A = [];
     b = [];
-    if VERBOSELEVEL>0
+    if VERBOSELEVEL>1
         str = 'diagnose';
     else
         str = 'off';
@@ -72,19 +75,21 @@ function [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = gaSolverMap
     intVarsIdx = 1:noVars;
     [x, ~, ~] = ga( localObj, noVars, A, b, [], [], lb, ub, nlConst, intVarsIdx,options);
     
-    chosenRSUpos = find(x==1);
-    [ tilesCovered,tilesCoveredIDs ] = tilesNumCovered(chosenRSUpos,losTileIDs);
-    highestRSS = highestRSSBSPlacement(chosenRSUpos,losTileIDs,rssTile);
+    chosenBSPos = find(x==1);
+    tilesCovered = tilesNumCovered(chosenBSPos,losTileIDs,nLosTileIDs);
+    [ ~,highestRSS,~,~,~,~ ]  = highestRSSValues(chosenBSPos,outputMap,sortedIndexes, rssTile,losNlos);
 
 end
 
-function [c, ceq] = nlConstFun(e, N, t, losTileIDs, RSS_TH, rssTile)
+function [c, ceq] = nlConstFun(e, N, t, losTileIDs,nLosTileIDs, RSS_TH, rssTile,sortedIndexes,losNlos,outputMap)
     ceq = [];
 
-    gammaF = tilesNumCovered(find(e==1),losTileIDs);
+    tmp = tilesNumCovered(find(e==1),losTileIDs,nLosTileIDs);
+    gammaF = tmp.losNumber;
     c_1 = -(gammaF - t*N);
     
-    highestRSS = highestRSSBSPlacement(find(e==1),losTileIDs,rssTile);
+    chosenBSPos = find(e==1);
+    [ ~,highestRSS,~,~,~,~ ]  = highestRSSValues(chosenBSPos,outputMap,sortedIndexes,rssTile,losNlos);
   
     tmp_1 = sort(highestRSS,'descend');
 

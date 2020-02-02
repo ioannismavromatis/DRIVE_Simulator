@@ -45,8 +45,8 @@ function runMain( map, sumo, BS, linkBudget )
     
     % Find the best positions to deploy a BS (works just for the femtocell
     % technologies.
-    [ chosenRSUpos, tilesCovered,tilesCoveredIDs,highestRSS ] = ...
-        bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,initialLosTilesRSS);
+    [ chosenRSUpos, tilesCovered, highestRSS ] = ...
+        bsPlacement(map,outputMap,BS,potentialBSPos,losIDsPerRAT,nLosIDsPerRAT,initialRssAll,sortedIndexesPerRat,losNlosStatusPerRAT);
             
     if strcmp(SIMULATOR.scenario,'osm')
         % Return empty arrays if the OSM functionality is chosen -- The

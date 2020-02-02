@@ -14,7 +14,7 @@ VERBOSELEVEL = 1; % Use 0 to print nothing, 1 to print some
 %% Simulator Settings              
 global SIMULATOR 
 SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e., 'v2v', 'sumo', 'osm'
-SIMULATOR.bsPlacement = 'random'; % three options provied, i.e., 'ga', 'random', 'greedy'
+SIMULATOR.bsPlacement = 'ga'; % three options provied, i.e., 'ga', 'random', 'greedy'
 SIMULATOR.parallelRun = 1;
 SIMULATOR.parallelWorkers = 8;
 SIMULATOR.sumoPath = '/usr/local/bin';
