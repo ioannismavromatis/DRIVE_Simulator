@@ -24,10 +24,14 @@ function [ losLinks, nLosLinks, losIDs, nLosIDs, losNlosStatus ] = ...
 % email: ioan.mavromatis@bristol.ac.uk
 % email: ioannis.mavromatis@toshiba-trel.com
 
-    outputLineSegmentIntersect = lineSegmentIntersect(raysToTest, buildingsToTest);
+    % This is obsolete. It is using the old line segment intersect method 
+%     outputLineSegmentIntersect = lineSegmentIntersect(raysToTest, buildingsToTest);
+%     interSect = sum(outputLineSegmentIntersect.intAdjacencyMatrix,2);
+    
+    interSect = segments_intersect_test_vector(raysToTest,buildingsToTest);
 
     %  Find the intersections with the road polygons
-    interSect = sum(outputLineSegmentIntersect.intAdjacencyMatrix,2);
+    
     interSect = logical(interSect);
 
     % Find the tile IDs that have LOS
@@ -40,9 +44,8 @@ function [ losLinks, nLosLinks, losIDs, nLosIDs, losNlosStatus ] = ...
     nLosIDs = sortedIndexes(interSect);
     
     % create a logical index array for easier manipulation
-    losNlosStatus = zeros(1,length(sortedIndexes));
-    losNlosStatus(losLinks) = 1;
-    losNlosStatus = logical(losNlosStatus);
+    losNlosStatus = false(1,length(sortedIndexes));
+    losNlosStatus(losLinks) = true;
     
 end
 

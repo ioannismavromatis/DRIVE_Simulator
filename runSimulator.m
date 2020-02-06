@@ -11,7 +11,7 @@ clc; clf; clear; clear global; close all;
 
 fprintf('SMARTER: Simulation Framework for City-Scale Experimentation\n');
 fprintf('Copyright (c) 2019-2020, Ioannis Mavromatis\n');
-fprintf('email: ioan.mavromatis@bristol.ac.uk\n\n');
+fprintf('email: ioan.mavromatis@bristol.ac.uk\n');
 fprintf('email: ioannis.mavromatis@toshiba-trel.com\n\n');
 
 % Load the simulation settings (for further explanation see simSettings.m)

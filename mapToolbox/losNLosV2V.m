@@ -18,7 +18,7 @@ function [losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes] = losNLo
 %     losNlosStatus  : The classification of each tile (LOS/NLOS) for a
 %                      given BS - 0 is NLOS, 1 is LOS
 %     distanceTiles  : The distance of each tile from a another given tile.
-%     sortedIndexes  : The sorted indexes for the tile close to a ginen tile,
+%     sortedIndexes  : The sorted indexes for the tile close to a given tile,
 %                      sorted from the closest to the furthest one.
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
@@ -50,6 +50,7 @@ function [losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes] = losNLo
     WaitMessage = parfor_wait(N, 'Waitbar', true);
    
     parfor (i = 1:length(sortedIndexes),SIMULATOR.parallelWorkers)
+            
         WaitMessage.Send;
         if ~isempty(sortedIndexes{i})
             % Find the the "rays" that should be tested with the buildings polygon
@@ -61,6 +62,7 @@ function [losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes] = losNLo
             for k = 1:length(buildingIds{i})
                 building = [ outputMap.buildings( ismember(outputMap.buildings(:,1), buildingIds{i}(k)), 3 ) ...
                     outputMap.buildings( ismember(outputMap.buildings(:,1), buildingIds{i}(k)), 2 ) ];
+                
                 buildingsToTest = [ buildingsToTest ;
                     building(1:end-1,1) ...
                     building(1:end-1,2) ...

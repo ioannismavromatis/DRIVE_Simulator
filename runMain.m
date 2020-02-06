@@ -57,7 +57,7 @@ function runMain( map, sumo, BS, linkBudget )
         
         runOSM(map,BS,outputMap,potentialBSPos,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll);
     elseif strcmp(SIMULATOR.scenario,'sumo')
-        [ vehicles, pedestrians ] = runSUMO(sumo,map,BS,outputMap,potentialBSPos,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll, distanceBuildings, sortedIndexesBuildings, rssBuildings);
+        [ vehicles, pedestrians ] = runSUMO(sumo,map,BS,outputMap,potentialBSPos,chosenRSUpos, tilesCovered,distancePerRAT,sortedIndexesPerRat,losNlosStatusPerRAT,initialRssAll, distanceBuildings, sortedIndexesBuildings, rssBuildings);
     elseif strcmp(SIMULATOR.scenario,'v2v')
         [ vehicles, pedestrians ] = runV2V(sumo,map,BS,outputMap,distancePerTile,sortedIndicesPerTile,losNlosStatusPerTile,initialRssAllV2V);
     else

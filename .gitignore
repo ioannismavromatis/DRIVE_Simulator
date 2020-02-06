@@ -1,6 +1,9 @@
 *.*~
 *.asv
 *.mat
+*.mexmaci64
+
 results
 .DS_Store
 mobilityFiles
+

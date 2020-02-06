@@ -41,7 +41,7 @@ sumo.vehicleTypeAbbreviation= {'amb' ; 'pas'};
 map.file = './mobilityFiles/sumoFiles/londonSmall/londonSmall.osm.xml'; % manhattanLarge - londonSmall - smartJunction
 map.simplificationTolerance = 10;
 map.edgeTolerance = 100;
-map.tileSize = 20; % for square tiles: length of side - for hexagons: length of short diagonal
+map.tileSize = 4; % for square tiles: length of side - for hexagons: length of short diagonal
 map.tileShape = 2; % give 1 for hexagon and 2 for square
 map.area = 200; % give the size of the map tiles to be processed or give 0
                  % to be ignored  --- for square areas: length of side - for 

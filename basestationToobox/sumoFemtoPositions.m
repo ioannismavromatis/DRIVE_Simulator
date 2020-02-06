@@ -18,39 +18,69 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
 % email: ioan.mavromatis@bristol.ac.uk
 % email: ioannis.mavromatis@toshiba-trel.com
 
+    global SIMULATOR
     tic
-    polyObj = polyshape();
-
-    warning('off', 'MATLAB:polyshape:boundary3Points')
+    
     junctionIDs = traci.junction.getIDList();
     laneIDs = traci.lane.getIDList();
     
     N = length(junctionIDs) + length(laneIDs);
     WaitMessage = parfor_wait(N, 'Waitbar', true);
     
-% Find all the junctions on the map in order to take the potential BS
-% positions
-    for i = 1:length(junctionIDs)
-        WaitMessage.Send;
-        shape = traci.junction.getShape(junctionIDs{i});
-        polyObjTmp = polyshape();
-        x = [];
-        y = [];
-        for j = 1:length(shape)
-            x(j)=shape{j}(1);
-            y(j)=shape{j}(2);
-        end
-        if ~isempty(x) && ~isempty(y)
-            polyObjTmp = polyshape(x,y,'Simplify',false);
-        end
-        polyObj = union(polyObj,polyObjTmp);
-    end
+    % Find all the junctions on the map in order to take the potential BS positions.
+    tree = repmat(ceil(length(junctionIDs)/SIMULATOR.parallelWorkers),[1 SIMULATOR.parallelWorkers-1]);
+    treeFinal = length(junctionIDs) - tree(1)*(SIMULATOR.parallelWorkers-1);
+    tree = [ tree treeFinal ];
 
-% Given the lanes from SUMO, find where these lanes overlap with the
-% junctions. If there is an overlap it means that it is a road and is taken
-% into consideration. Also, find the lamppost positions --- i.e., for
-% junctions that are further than the distance threshold place more
-% basestations equally spaced on the road.
+    % Get an array of all the junction shapes.
+    for i = 1:length(junctionIDs)
+        shape{i} = traci.junction.getShape(junctionIDs{i});
+    end
+    
+    % Run in parallel based on the number of workers to speed up the
+    % execution time.
+    parfor (i = 1:SIMULATOR.parallelWorkers,SIMULATOR.parallelWorkers)
+        warning('off', 'MATLAB:polyshape:boundary3Points')
+        WaitMessage.Send;
+        if i == 1
+            toRun = 1:tree(i);
+        elseif i == 8
+            toRun = sum(tree(1:i-1))+1:length(junctionIDs);
+        else
+            toRun = sum(tree(1:i-1))+1:sum(tree(1:i));
+        end
+        
+        polyObjParFor(i) = polyshape();
+        for j = toRun(1):toRun(end)
+            polyObjTmp = polyshape();
+            x = [];
+            y = [];
+            shapeParFor = shape{j};
+            for l = 1:length(shapeParFor)
+                x(l)=shapeParFor{l}(1);
+                y(l)=shapeParFor{l}(2);
+            end
+            if ~isempty(x) && ~isempty(y)
+                polyObjTmp = polyshape(x,y,'Simplify',false);
+            end
+            polyObjParFor(i) = union(polyObjParFor(i),polyObjTmp);
+        end
+        
+    end
+    
+    % Merge all the smaller union polygons into one
+    polyObj = polyshape();
+    for i = 1:SIMULATOR.parallelWorkers
+        polyObj = union(polyObj,polyObjParFor(i));
+    end
+    
+
+    % Given the lanes from SUMO, find where these lanes overlap with the
+    % junctions. If there is an overlap it means that it is a road and is taken
+    % into consideration. Also, find the lamppost positions --- i.e., for
+    % junctions that are further than the distance threshold place more
+    % basestations equally spaced on the road.
+    
     potentialPos = [];
     lamppostPos = [];
     for i=1:length(laneIDs)
@@ -69,10 +99,10 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
     end
 
 
-% Get all the positions that are on the vertices of the junction polygon.   
-% Reshape the polygon matrix to comply with the required input of
-% inpoly2 and findNodesEdges, i.e. each polygon is represented by a
-% number of points having the first and the last point being the same.
+    % Get all the positions that are on the vertices of the junction polygon.   
+    % Reshape the polygon matrix to comply with the required input of
+    % inpoly2 and findNodesEdges, i.e. each polygon is represented by a
+    % number of points having the first and the last point being the same.
     tmp = polyObj.Vertices;
     nanToTakeIntoAccount = find(isnan(tmp(:,1))==1);
     for i = 1:length(nanToTakeIntoAccount)

@@ -1,5 +1,5 @@
 function [vehicles,pedestrians] = ...
-            runSUMO(sumo,map,BS,outputMap,potentialPos,distanceTiles,...
+            runSUMO(sumo,map,BS,outputMap,potentialPos,chosenRSUpos, tilesCovered,distanceTiles,...
             sortedIndexes,losNlosStatus,rssAll,distanceBuildings, sortedIndexesBuildings, rssAllBuildings)
 %RUNSUMO This is the main function of the SUMO mode. It initialises the
 % highestRSS, the servingBSs and the tiles covered variables. Later, it
@@ -37,21 +37,12 @@ function [vehicles,pedestrians] = ...
 
     tic 
     
-    % Initialise the potential BS positions for all the communication
-    % planes.
-    bsIDs{1} = 1:length(potentialPos.lte.pos);
-    randomPos = 30;
-%     if length(potentialPos.mmWaves.pos)<=randomPos
-%         randomPos = length(potentialPos.mmWaves.pos);
-%     end
-%     bsIDs{2} = randi(length(potentialPos.mmWaves.pos),1,randomPos);
-%     bsIDs{2} = unique(bsIDs{2});
-    bsIDs{2} = 2;
-    
-    for i = 1:length(bsIDs)
-        [ servingBSId{i},highestRSS{i},highestRSSPlot{i},losNlos{i},tilesCoveredIDs{i},tilesCovered{i} ] = highestRSSValues(bsIDs{i},outputMap,sortedIndexes{i}, rssAll{i},losNlosStatus{i});
+    for i = 1:length(BS.rats)
+        ratName = BS.rats{i};
+        [ servingBSId.(ratName),highestRSS.(ratName),highestRSSPlot.(ratName),losNlos.(ratName),tilesCoveredIDs.(ratName), tilesNum.(ratName) ] = ...
+                      highestRSSValues(chosenRSUpos.(ratName),outputMap,sortedIndexes{i}, rssAll{i},losNlosStatus{i});
         figure
-        heatmapPrint(outputMap,map,highestRSSPlot{i},bsIDs{i},potentialPos.(BS.rats{i}).pos,tilesCoveredIDs{i})    
+        heatmapPrint(outputMap,map,highestRSSPlot.(ratName),chosenRSUpos.(ratName),potentialPos.(ratName).pos,tilesCoveredIDs.(ratName))    
     end
     
     % Progress to the first simulation step
