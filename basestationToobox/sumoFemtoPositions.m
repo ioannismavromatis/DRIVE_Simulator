@@ -139,6 +139,8 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
 % Change matrix orientation to be compatible with the OSM scripts as well.    
     potentialPos = potentialPos';
     potentialPos = [ potentialPos(:,2) potentialPos(:,1) ];
+    lamppostPos = lamppostPos';
+    lamppostPos = [ lamppostPos(:,2) lamppostPos(:,1) ];
 
 % Add the 3rd dimension to make it a 3d system.
     potentialPos = [ potentialPos randi(BS.(ratName).height,length(potentialPos),1) ];
@@ -148,6 +150,8 @@ function potentialPos = sumoFemtoPositions(outputMap, BS, map, ratName)
 %     plot(polyObj)      
 %     hold on
 %     plot(potentialPos(:,2),potentialPos(:,1),'ro')
+%     hold on
+%     plot(lamppostPos(:,2),lamppostPos(:,1),'g+')
 
     F = findall(0,'type','figure','tag','TMWWaitbar');
     delete(F)

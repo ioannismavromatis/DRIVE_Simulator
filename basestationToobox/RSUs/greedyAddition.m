@@ -31,27 +31,39 @@ function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potential
     allTilesSystem = unique(allTilesSystem);
     tilesToCover = ceil((1-BS.toleranceParam)*length(allTilesSystem));
    
-    chosenBSpos(1) = maxIndex;
+    % Initialise the execution by taking the BS with the most LOS tiles.
+    chosenBSpos = maxIndex;
     tilesCovered = tilesNumCovered(chosenBSpos,losIDs{ratPos},nLosIDs{ratPos});
    
-    while tilesCovered.losNumber<tilesToCover
-        tilesCoveredTmp = [];
-        posToTest = logical(1:length(potentialBSPos.(ratName).pos));
-        posToTest(chosenBSpos)=false;
-        
-        for i = 1:length(posToTest)
-            if posToTest(i)
-                tmpStruct = tilesNumCovered([chosenBSpos i],losIDs{ratPos},nLosIDs{ratPos});
-                tilesCoveredTmp(i) = tmpStruct.totalNumber;
-            end
-        end
-        
-        [~, maxIdx] = max(tilesCoveredTmp);
-        chosenBSpos(length(chosenBSpos)+1) = maxIdx;
-        
+    % Initialse an array with zeros.
+    tiles = zeros(length(potentialBSPos.(ratName).pos),length(allTilesSystem));
+    
+    % When a tile is covered by a BS (either in LOS or NLOS), a logical 1 is added in the array.
+    for i = 1:length(potentialBSPos.(ratName).pos)
+        tmp = tilesNumCovered(i,losIDs{ratPos},nLosIDs{ratPos});
+        tiles(i,tmp.allIDs)=1;
+    end
+    
+    tmpLosNumber = tilesCovered.losNumber;
+    discardedBSpos = [];
+    
+    % Operate until the expected number of covered tiles is reached.
+    while tilesCovered.totalNumber < tilesToCover
+        tiles([ chosenBSpos discardedBSpos ],:) = 0;
+        sumAll = sum(tiles,2);
+        [~,jj] =max(sumAll);
+        chosenBSpos(length(chosenBSpos)+1) = jj;
         tilesCovered = tilesNumCovered(chosenBSpos,losIDs{ratPos},nLosIDs{ratPos});
-        [ ~,highestRSS,~,~,~,~ ]  = highestRSSValues(chosenBSpos,outputMap,sortedIndexes{ratPos}, rssAll{ratPos},losNlos{ratPos});
-    end    
+        if tilesCovered.totalNumber<=tmpLosNumber
+            discardedBSpos = [ discardedBSpos chosenBSpos(end) ];
+            chosenBSpos = chosenBSpos(1:end-1);
+            
+        end
+        tmpLosNumber = tilesCovered.totalNumber;
+    end
+    
+    % Calculate the highest RSS value for the chose BSs
+    [ ~,highestRSS,~,~,~,~ ]  = highestRSSValues(chosenBSpos,outputMap,sortedIndexes{ratPos}, rssAll{ratPos},losNlos{ratPos});    
     
     verbose('Finding the best RSUs using Greedy Addition took %f seconds.', toc);
 end

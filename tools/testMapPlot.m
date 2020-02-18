@@ -10,7 +10,7 @@ function testMapPlot(output,shape, buildingsIn)
 % email: ioannis.mavromatis@toshiba-trel.com
     clf
     mapPrint(output)
-    alpha(0.1)
+    alpha(0.5)
     hold on  
     
     if strcmp(shape,'area')
@@ -20,13 +20,13 @@ function testMapPlot(output,shape, buildingsIn)
             for i = 1:length(output.pHandleArea)
                 idx = output.pHandleArea{i};
                 idx = [ idx idx(1) ];
-                plot(output.vHandleArea(idx,1), output.vHandleArea(idx,2),'LineWidth',3,'color',rand(1,3))
+                plot(output.vHandleArea(idx,1), output.vHandleArea(idx,2),'LineWidth',6,'color',[0 0 1])
                 hold on
             end
         else
             [toRun,~] = size(output.areaVerticesX);
             for i = 1:toRun
-                plot(output.areaVerticesX(i,:),output.areaVerticesY(i,:),'LineWidth',3,'color',rand(1,3))
+                plot(output.areaVerticesX(i,:),output.areaVerticesY(i,:),'LineWidth',6,'color',[0 0 1])
                 hold on
             end
         end
@@ -43,7 +43,7 @@ function testMapPlot(output,shape, buildingsIn)
     if strcmp(shape,'area')
         buildings = testPolygonPlot(output.buildingsIn);
         hold on
-        mapshow(buildings(:,3),buildings(:,2),'DisplayType','polygon','FaceColor',[1 1 0],'LineStyle',':') % plot the map parsed from SUMO network file
+        mapshow(buildings(:,3),buildings(:,2),'DisplayType','polygon','FaceColor',[0 0.6 0],'LineStyle',':') % plot the map parsed from SUMO network file
     end
 end
 
