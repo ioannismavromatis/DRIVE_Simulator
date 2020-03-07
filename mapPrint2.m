@@ -27,18 +27,18 @@ function mapPrint( outputMap, potRSUPos )
 %     roadsLineNew(idx,:) = outputMap.roadsLine;
 
 
-    if ~isempty(outputMap.buildingsAnimation)
-        changeIndexes = diff(outputMap.buildingsAnimation(:,1))~=0;
+    if ~isempty(outputMap.buildings)
+        changeIndexes = diff(outputMap.buildings(:,1))~=0;
         changeIndexes = [ 0 ; changeIndexes ];
         changeIdxBuildings = find(changeIndexes == 1);
         matrix = [0:length(changeIdxBuildings)-1]';
         changeIdxBuildings = changeIdxBuildings+matrix;
 
-        [r,c]       = size(outputMap.buildingsAnimation);
+        [r,c]       = size(outputMap.buildings);
         add         = numel(changeIdxBuildings);            % How much longer Anew is
         buildingsNew = NaN(r + add,c);        % Preallocate
         idx         = setdiff(1:r+add,changeIdxBuildings);  % all positions of Anew except pos
-        buildingsNew(idx,:) = outputMap.buildingsAnimation;
+        buildingsNew(idx,:) = outputMap.buildings;
     end
 
     if ~isempty(outputMap.foliageAnimation)
@@ -57,7 +57,7 @@ function mapPrint( outputMap, potRSUPos )
 
     set(gcf, 'Position', get(0, 'Screensize'));
     
-    if ~isempty(outputMap.buildingsAnimation)
+    if ~isempty(outputMap.buildings)
         obj = mapshow(buildingsNew(:,3),buildingsNew(:,2),'DisplayType','polygon','FaceColor',[1 0.2 0.2],'LineStyle',':'); % plot the map parsed from SUMO network file;
         set(get(get(obj,'Annotation'),'LegendInformation'),'IconDisplayStyle','off')
         hold on;
@@ -77,10 +77,10 @@ function mapPrint( outputMap, potRSUPos )
 %     hold on
     
 
-    minX = min(outputMap.buildingsAnimation(:,3));
-    minY = min(outputMap.buildingsAnimation(:,2));
-    maxX = max(outputMap.buildingsAnimation(:,3));
-    maxY = max(outputMap.buildingsAnimation(:,2));
+    minX = min(outputMap.buildings(:,3));
+    minY = min(outputMap.buildings(:,2));
+    maxX = max(outputMap.buildings(:,3));
+    maxY = max(outputMap.buildings(:,2));
     xlim([minX maxX]);
     ylim([minY maxY]);
     drawnow;

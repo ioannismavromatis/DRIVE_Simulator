@@ -42,7 +42,7 @@ function printAnimate(sumo,vehicle,pedestrian,outputMap)
     pNodePos = generateLineObjects(pNode,pedestrian);
     
     % The information of the matlab figure
-    title('5G V2X AI-Assisted Simulation Framework')
+%     title('5G V2X AI-Assisted Simulation Framework')
     xlabel('X (meters)');
     ylabel('Y (meters)');
     axlim = get(gca, 'XLim');    % Get XLim Vector

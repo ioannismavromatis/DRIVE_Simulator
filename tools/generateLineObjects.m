@@ -28,12 +28,13 @@ function [obj,typePos] = generateLineObjects(node,structure)
         % for the different types of vehicles, pick a random color to
         % represent their type.
         colours = generateColours(structure);
+        markers = [ 'o' ; 'd' ; 'h' ];
         typePos = zeros(1,length(structure.type));
         
         % generate all the objects for the vehicles in the simulation
         for idx = 1:length(structure.vehNode)
-            obj(idx) = plot(node(idx).v_x(1),node(idx).v_y(1),'o','color',...
-                            colours(structure.vehNode(idx).vehicleType,:),'MarkerSize', 10,...
+            obj(idx) = plot(node(idx).v_x(1),node(idx).v_y(1),markers(structure.vehNode(idx).vehicleType,:),'color',...
+                            colours(structure.vehNode(idx).vehicleType,:),'MarkerSize', 20,...
                             'MarkerFaceColor',colours(structure.vehNode(idx).vehicleType,:));
             
             set(get(get(obj(idx),'Annotation'),'LegendInformation'),'IconDisplayStyle','off')

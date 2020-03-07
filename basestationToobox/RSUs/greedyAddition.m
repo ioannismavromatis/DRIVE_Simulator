@@ -1,4 +1,4 @@
-function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName)
+function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,map,ratName)
 %greedyAddition A greedy addition algorithm to choose the best BS positions
 %  on the map. The BS that provides the better coverage (most tiles in LOS
 %  is chosen every time), until the required number of tiles is reached.
@@ -26,10 +26,25 @@ function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potential
     tic
     ratPos = find(strcmp(ratName,BS.rats)==1);
     
-	[ ~, maxIndex ] =  max(cellfun('length', losIDs{ratPos}));
+    pos = potentialBSPos.(ratName).pos;
+    
+    toRemove = zeros(length(pos),1);
+    for i = 1:length(toRemove)
+        if pos(i,2)<outputMap.bbox(2,1)+300 ||...
+           pos(i,2)>outputMap.bbox(2,2)-300 ||...
+           pos(i,1)<outputMap.bbox(1,1)+300 ||...
+           pos(i,1)>outputMap.bbox(1,2)-300
+           toRemove(i) = 1;
+        end
+    end
+
+    
+    [ ~, maxIndex ] =  max(cellfun('length', losIDs{ratPos}));
     allTilesSystem=reshape(cell2mat(losIDs{ratPos}),[],1);
     allTilesSystem = unique(allTilesSystem);
+    
     tilesToCover = ceil((1-BS.toleranceParam)*length(allTilesSystem));
+    
    
     % Initialise the execution by taking the BS with the most LOS tiles.
     chosenBSpos = maxIndex;
@@ -45,11 +60,17 @@ function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potential
     end
     
     tmpLosNumber = tilesCovered.losNumber;
-    discardedBSpos = [];
+    discardedBSpos = find(~toRemove == 0)';
+    
     
     % Operate until the expected number of covered tiles is reached.
     while tilesCovered.totalNumber < tilesToCover
         tiles([ chosenBSpos discardedBSpos ],:) = 0;
+        if discardedBSpos(end)==1 && discardedBSpos(end-1) == 1
+            fprintf("Maximum value will not achieved. The current result is returned.\n")
+            break
+        end
+            
         sumAll = sum(tiles,2);
         [~,jj] =max(sumAll);
         chosenBSpos(length(chosenBSpos)+1) = jj;
@@ -62,8 +83,15 @@ function [chosenBSpos, tilesCovered, highestRSS ]  = greedyAddition(BS,potential
         tmpLosNumber = tilesCovered.totalNumber;
     end
     
-    % Calculate the highest RSS value for the chose BSs
-    [ ~,highestRSS,~,~,~,~ ]  = highestRSSValues(chosenBSpos,outputMap,sortedIndexes{ratPos}, rssAll{ratPos},losNlos{ratPos});    
+    % Calculate the highest RSS value for the chosen BSs
+    [ ~,highestRSS,highestRSSPlot,~,tileIDs,~ ]  = highestRSSValues(chosenBSpos,outputMap,sortedIndexes{ratPos}, rssAll{ratPos},losNlos{ratPos});    
+    
+%     For debug purposes
+%     heatmapPrint(outputMap,map,highestRSSPlot,chosenBSpos,potentialBSPos.(ratName).pos,tileIDs)        
+%     hold on
+%     plot(pos(~toRemove,2), pos(~toRemove,1),...
+%          '+','color',[0 1 0],'MarkerSize',15,'LineWidth',2)
+
     
     verbose('Finding the best RSUs using Greedy Addition took %f seconds.', toc);
 end

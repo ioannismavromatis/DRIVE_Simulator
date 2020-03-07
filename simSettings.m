@@ -15,7 +15,7 @@ VERBOSELEVEL = 1; % Use 0 to print nothing, 1 to print some
 %% Simulator Settings              
 global SIMULATOR 
 SIMULATOR.scenario = 'sumo'; % three scenarios provided, i.e., 'v2v', 'sumo', 'osm'
-SIMULATOR.bsPlacement = 'ga'; % three options provied, i.e., 'ga', 'random', 'greedy'
+SIMULATOR.bsPlacement = 'greedy'; % three options provied, i.e., 'ga', 'random', 'greedy'
 SIMULATOR.parallelRun = 1;
 SIMULATOR.parallelWorkers = 8;
 SIMULATOR.sumoPath = '/usr/local/bin';
@@ -26,7 +26,7 @@ SIMULATOR.gaSeed = 5; % The seed to be used for the Genetic Algorithm (for the B
 SIMULATOR.randomToChoose = 50; % The number of random basestations to be chosen (when using the random BS placement function)
 
 %% SUMO Settings
-sumo.routeFile = './mobilityFiles/sumoFiles/londonSmall/londonSmall.sumocfg';
+sumo.routeFile = './mobilityFiles/sumoFiles/manhattanLarge/manhattanLarge.sumocfg';
 sumo.maxVehicleNumber = 200; % maximum number of vehicles per timestep - set to zero if all vehicles are to be considered
 sumo.startTime = 0;
 sumo.endTime = 200;
@@ -38,12 +38,12 @@ sumo.vehicleTypes= {'Ambulance';'Passenger'};
 sumo.vehicleTypeAbbreviation= {'amb' ; 'pas'};
 
 %% Map Settings
-map.file = './mobilityFiles/sumoFiles/londonSmall/londonSmall.osm.xml'; % manhattanLarge - londonSmall - smartJunction
+map.file = './mobilityFiles/sumoFiles/manhattanLarge/manhattanLarge.osm.xml'; % manhattanLarge - londonSmall - smartJunction
 map.simplificationTolerance = 10;
 map.edgeTolerance = 100;
-map.tileSize = 4; % for square tiles: length of side - for hexagons: length of short diagonal
+map.tileSize = 16; % for square tiles: length of side - for hexagons: length of short diagonal
 map.tileShape = 2; % give 1 for hexagon and 2 for square
-map.area = 200; % give the size of the map tiles to be processed or give 0
+map.area = 600; % give the size of the map tiles to be processed or give 0
                  % to be ignored  --- for square areas: length of side - for 
                  % hexagons: length of short diagonal
 map.areaShape = 2; % give 1 for hexagon and 2 for square

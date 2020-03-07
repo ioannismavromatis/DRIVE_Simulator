@@ -49,6 +49,7 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes, losRSS,
     if usePrepFile
         % Load the stored los/nlos links file.
         load([filePos.folder '/' filePos.name])
+        losIDs = []; nLosIDs = []; losRSS = []; nLosRSS = [];
         fprintf('File %s with all the V2V LOS/NLOS links was successfully loaded.\n', filePos.name);
     else
     
@@ -67,8 +68,10 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes, losRSS,
             % helps with the easier loading later.
             fileSaveName = [ fileName{end} '_' date '_v2v.mat' ];
             fprintf('Saving preprocessed potential V2V file: %s\n', fileSaveName);
-            save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','distanceTiles','losNlosStatus',...
-                'sortedIndexes', 'BS', 'map','outputMap','losRSS','nLosRSS','rssAll');
+%             save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','distanceTiles','losNlosStatus',...
+%                 'sortedIndexes', 'BS', 'map','outputMap','losRSS','nLosRSS','rssAll','-v7.3');
+            save([correctPath '/' fileSaveName], 'distanceTiles','losNlosStatus',...
+                'sortedIndexes', 'BS', 'map','outputMap','rssAll','-v7.3');
         else
             fprintf('The file with all the potential V2V links will not be saved\n.');
         end 

@@ -9,7 +9,7 @@
 
 clc; clf; clear; clear global; close all;
 
-fprintf('SMARTER: Simulation Framework for City-Scale Experimentation\n');
+fprintf('DRIVE: Digital Twin for self-dRiving Intelligent VEhicles\n');
 fprintf('Copyright (c) 2019-2020, Ioannis Mavromatis\n');
 fprintf('email: ioan.mavromatis@bristol.ac.uk\n');
 fprintf('email: ioannis.mavromatis@toshiba-trel.com\n\n');

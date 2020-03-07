@@ -66,6 +66,7 @@ function [ BS, linkBudget, map ] = loadRATs(BS,linkBudget,map)
             end
         else
             BS.(ratName).bsGain = bsGain;
+            clear bsGain
         end
         
         if ~exist('mobileGain','var')
@@ -76,6 +77,7 @@ function [ BS, linkBudget, map ] = loadRATs(BS,linkBudget,map)
             end
         else
             BS.(ratName).mobileGain = mobileGain;
+            clear mobileGain
         end
         
         if strcmp(ratType,'femto')

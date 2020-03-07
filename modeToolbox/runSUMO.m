@@ -35,14 +35,18 @@ function [vehicles,pedestrians] = ...
 % email: ioan.mavromatis@bristol.ac.uk
 % email: ioannis.mavromatis@toshiba-trel.com
 
+    global VERBOSELEVEL
     tic 
     
-    for i = 1:length(BS.rats)
-        ratName = BS.rats{i};
-        [ servingBSId.(ratName),highestRSS.(ratName),highestRSSPlot.(ratName),losNlos.(ratName),tilesCoveredIDs.(ratName), tilesNum.(ratName) ] = ...
-                      highestRSSValues(chosenRSUpos.(ratName),outputMap,sortedIndexes{i}, rssAll{i},losNlosStatus{i});
-        figure
-        heatmapPrint(outputMap,map,highestRSSPlot.(ratName),chosenRSUpos.(ratName),potentialPos.(ratName).pos,tilesCoveredIDs.(ratName))    
+    % For debug purposes only
+    if VERBOSELEVEL >= 1
+        for i = 1:length(BS.rats)
+            ratName = BS.rats{i};
+            [ servingBSId.(ratName),highestRSS.(ratName),highestRSSPlot.(ratName),losNlos.(ratName),tilesCoveredIDs.(ratName), tilesNum.(ratName) ] = ...
+                          highestRSSValues(chosenRSUpos.(ratName),outputMap,sortedIndexes{i}, rssAll{i},losNlosStatus{i});
+            figure
+            heatmapPrint(outputMap,map,highestRSSPlot.(ratName),chosenRSUpos.(ratName),potentialPos.(ratName).pos,tilesCoveredIDs.(ratName))    
+        end
     end
     
     % Progress to the first simulation step
@@ -76,9 +80,9 @@ function [vehicles,pedestrians] = ...
             nearbyTile(outputMap,vehicleTimestep,pedestrianTimestep);
         
         for k = 1:length(BS.rats)        
-            rssHighest = highestRSS{k}(idxVehicleTile);
-            bsServing = servingBSId{k}(idxVehicleTile);
-            losNlosLink = losNlos{k}(idxVehicleTile);
+            rssHighest = highestRSS.(BS.rats{k})(idxVehicleTile);
+            bsServing = servingBSId.(BS.rats{k})(idxVehicleTile);
+            losNlosLink = losNlos.(BS.rats{k})(idxVehicleTile);
         
             dataRateTmp = [];
             for l = 1:length(rssHighest)
@@ -97,33 +101,33 @@ function [vehicles,pedestrians] = ...
             dataRate{k}(timeStep) = mean(dataRateTmp);        
         end
         
-        if mod(timeStep,50)==0 && timeStep <= 100
-            
+        if mod(timeStep,50)==0 || timeStep==0
+            ratName = 'lte';
             outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinates,initialX,initialY,interpX,interpY,map);
-
-            [~,max_idx] = max(outputMap.userPerSqMeter(:));
-            [xI, yI]=ind2sub(size(outputMap.userPerSqMeter),max_idx);
             
-            highDemand = [ outputMap.bbox(1,1)+xI, outputMap.bbox(2,1)+yI ];
+            expectedTXPower = outputMap.userPerSqMeter/100*23+20;
             
-            [~,idxBS] = pdist2([potentialPos.lte.pos(:,2),potentialPos.lte.pos(:,1)],[ highDemand(2) highDemand(1)],'euclidean','Smallest',4);
-            for l = 1:length(idxBS)
-            	potentialPos.lte.configuration(idxBS(l)).txPower = 43;
+            [Xq,Yq] = meshgrid(interpX,interpY);
+            Xq = Xq';
+            Yq = Yq';
+            for kk = 1:length(potentialPos.(ratName).pos)
+                
+                [~,tmpIdx] = pdist2([ Yq(:) Xq(:) ],[potentialPos.(ratName).pos(kk,2),potentialPos.(ratName).pos(kk,1)],'euclidean','Smallest',1);
+                tmp = expectedTXPower(:);
+                potentialPos.(ratName).configuration(kk).txPower = round(tmp(tmpIdx));
             end
+ 
             [~,~,rssAll{1},potentialPos.lte] = updateRSS(losNlosStatus{1},distanceTiles{1},sortedIndexes{1},potentialPos.lte,BS,'lte');
-            rssAllBuildings2{1} = updateRSSBuildings(distanceBuildings{1},potentialPos.lte,BS,'lte');
+            rssAllBuildings2{1} = updateRSSBuildings(distanceBuildings{1},potentialPos.(ratName),BS,'lte');
             
-            [ servingBSId{1},highestRSS{1},highestRSSPlot{1},losNlos{1},tilesCoveredIDs{1},tilesCovered{1} ] = highestRSSValues(1:length(potentialPos.lte.pos),outputMap,sortedIndexes{1}, rssAll{1},losNlosStatus{1});
+            [ servingBSId.(ratName),highestRSS.(ratName),highestRSSPlot.(ratName),losNlos.(ratName),tilesCoveredIDs.(ratName), tilesNum.(ratName) ] = ...
+                      highestRSSValues(chosenRSUpos.(ratName),outputMap,sortedIndexes{1}, rssAll{1},losNlosStatus{1});
+        
 %             figure
-%             heatmapPrint(outputMap,map,highestRSSPlot{1},1:length(potentialPos.lte.pos),potentialPos.lte.pos,tilesCoveredIDs{1})    
+%             heatmapPrint(outputMap,map,highestRSSPlot.(ratName),chosenRSUpos.(ratName),potentialPos.(ratName).pos,tilesCoveredIDs.(ratName))    
 %             hold on
-%             plot(highDemand(2),highDemand(1),'rx','MarkerSize',40,'lineWidth',10)
-            
-            for l = 1:length(idxBS)
-            	potentialPos.lte.configuration(idxBS(l)).txPower = 15;
-            end
-            [~,~,rssAll{1},potentialPos.lte] = updateRSS(losNlosStatus{1},distanceTiles{1},sortedIndexes{1},potentialPos.lte,BS,'lte');
-            [ servingBSId{1},highestRSS{1},highestRSSPlot{1},losNlos{1},tilesCoveredIDs{1},tilesCovered{1} ] = highestRSSValues(1:length(potentialPos.lte.pos),outputMap,sortedIndexes{1}, rssAll{1},losNlosStatus{1});
+%             plot(interpY(yImax),interpX(xImax),'gx','MarkerSize',40,'lineWidth',10)
+                        
             close all
         end
         % Progress to the timestep

@@ -67,13 +67,13 @@ function outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinate
     r = exp(sigma*r + mi);
 
     % For debug purposes only
-    % contourf(X,Y,r,'--')
-    % colorbar
+%     contourf(X,Y,r,'--')
+%     colorbar
     
     % Interpolate the above value for the entire map
     [Xq,Yq] = meshgrid(interpX,interpY);
-    userDensity = interp2(X,Y,r,Yq,Xq,'cubic');
-%     userDensity = userDensity';
+    userDensity = interp2(X,Y,r,Xq,Yq,'cubic');
+    userDensity = userDensity';
     
     % Normalise the user density to 1
     userDensity = userDensity - min(userDensity,[],'all');
@@ -83,7 +83,7 @@ function outputMap = usersPerBuilding(outputMap,timeStep,randomValues,coordinate
     figure
     v = round(userDensity*map.maxUsersPerBuilding);
     v = v';
-    contourf(Xq',Yq',v,'--')
+    contourf(Yq,Xq,v,'--')
     colorbar
     
     % Find the number of users per building per square meter

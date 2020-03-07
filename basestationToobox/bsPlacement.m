@@ -17,7 +17,6 @@ function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,
 %  Output :
 %     chosenRSUpos    : The IDs of the chosen BSs.
 %     tilesCovered    : The tiles covered by the selected BSs.
-%     tilesCoveredIDs : The tile IDs that are covered.
 %     highestRSS      : The highest RSS for the chosen BSs (per tile). 
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
@@ -51,7 +50,7 @@ function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,
                 elseif strcmp(SIMULATOR.bsPlacement,'greedy')
                     toSave = 'greedy';
                     [ chosenBSpos.(ratName),tilesCovered.(ratName),highestRSS.(ratName) ] =...
-                        greedyAddition(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,ratName);
+                        greedyAddition(BS,potentialBSPos,losIDs,nLosIDs,rssAll,outputMap,sortedIndexes,losNlos,map,ratName);
                 elseif strcmp(SIMULATOR.bsPlacement,'random') 
                     toSave = 'random';
                     [ chosenBSpos.(ratName),tilesCovered.(ratName),highestRSS.(ratName) ] =...

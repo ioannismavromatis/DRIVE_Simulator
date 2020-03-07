@@ -57,6 +57,10 @@ function heatmapPrint(outputMap,map,highestRSSValue,chosenBSpos,potBSPos,tilesID
     plot(potBSPos(chosenBSpos,2), potBSPos(chosenBSpos,1),...
          'o','color',[0 0 0],'MarkerSize',20,'LineWidth',3)
     hold on
+    
+%     plot(potBSPos(:,2), potBSPos(:,1),...
+%          'x','color',[1 0 0],'MarkerSize',15,'LineWidth',2)
+%     hold on
 
     % Update the limits of the figure given the edge coordinates of the buildings
     minX = min(outputMap.buildingsAnimation(:,3));
