@@ -17,7 +17,7 @@ function [ buildings, foliage, roads, trafficLights, bounds ] = cartesianAxisAli
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
     % Process the buildings polygon
     [xxB,yyB,minXBuildings,minYBuildings,maxXBuildings,maxYBuildings,~] =...

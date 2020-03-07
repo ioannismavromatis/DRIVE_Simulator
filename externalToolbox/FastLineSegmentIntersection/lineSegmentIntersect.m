@@ -67,7 +67,7 @@ function out = lineSegmentIntersect(XY1,XY2)
 %
 % Modified by Ioannis Mavromatis, 2019
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
 
 %%% Argument check.

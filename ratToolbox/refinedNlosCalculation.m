@@ -19,7 +19,7 @@ function [ nLosLinks, nLosTileIDs, losNlosStatus ] = ...
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
     nLosLinks = [ nLosLinks refinementValue+1:length(raysToTest) ];
     nLosTileIDs = sortedIndexes(nLosLinks);

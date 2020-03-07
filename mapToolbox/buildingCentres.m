@@ -12,7 +12,7 @@ function outputMap = buildingCentres(outputMap)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
     % Deactivate the warning from delaunay triangulation to avoid flooding
     % the command prompt

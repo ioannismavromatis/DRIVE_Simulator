@@ -31,7 +31,7 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
     
     % Start by not using the pre-processed file - this can be changed later.
     usePrepFile = 0;

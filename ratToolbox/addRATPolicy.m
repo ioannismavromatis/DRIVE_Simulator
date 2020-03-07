@@ -18,7 +18,7 @@ function potentialPos = addRATPolicy(potentialPos,BS,ratName,linkBudget)
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
     for i = 1:length(potentialPos.(ratName).pos)
         potentialPos.(ratName).configuration(i) = BS.(ratName);

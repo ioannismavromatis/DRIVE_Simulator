@@ -19,7 +19,7 @@ function [randomValues,coordinates,initialX,initialY,interpX,interpY] = initiali
 %
 % Copyright (c) 2019-2020, Ioannis Mavromatis
 % email: ioan.mavromatis@bristol.ac.uk
-% email: ioannis.mavromatis@toshiba-trel.com
+% email: ioannis.mavromatis@toshiba-bril.com
 
     % round the coordinates for easier manipulation later
     coordinates = [ floor(outputMap.bbox(1,1)) ceil(outputMap.bbox(1,2)) ;
