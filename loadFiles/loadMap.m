@@ -24,7 +24,7 @@ function outputMap = loadMap( map, sumo )
     % Path to the pre-processed maps.
     pathFile = SIMULATOR.pathPreprocessed;
     if SIMULATOR.map == 0
-        pathFile = [ pathFile '/osm' ];
+        pathFile = strcatEnhanced([ pathFile '/osm' ]);
         
         % Check if the file is in the correct format.
         if ~(contains(map.file,'osm') || contains(map.file,'OSM'))
@@ -33,14 +33,14 @@ function outputMap = loadMap( map, sumo )
         
         % Parcing an OSM map requires the file to be in '$name$.osm' format
         [ path, ~, ~ ] = fileparts(map.file);
-        fileName = strsplit(map.file,'/');
-        correctName = strsplit(fileName{end},'.');
-        map.fileCorrectName = [ path '/' correctName{1} '.osm' ];
+        fileName = strsplitEnhanced(map.file,'/');
+        correctName = strsplitEnhanced(fileName{end},'.');
+        map.fileCorrectName = strcatEnhanced([ path '/' correctName{1} '.osm' ]);
     else
         % If parcing a SUMO map was chosen
-        pathFile = [ pathFile '/sumo' ];
-        fileName = strsplit(sumo.routeFile,'/');
-        correctName = strsplit(fileName{end},'.');        
+        pathFile = strcatEnhanced([ pathFile '/sumo' ]);
+        fileName = strsplitEnhanced(sumo.routeFile,'/');
+        correctName = strsplitEnhanced(fileName{end},'.');        
     end
     
     % Start by not using the pre-processed map - this can be changed later. 
@@ -50,14 +50,14 @@ function outputMap = loadMap( map, sumo )
   
     % If the map file has already been processed before, ask the
     % user if it should be loaded or not.
-    if length(dir([pathFile '/' correctName{1} '/' correctName{1} '_preProc.mat'])) == 1
+    if length(dir(strcatEnhanced([pathFile '/' correctName{1} '/' correctName{1} '_preProc.mat']))) == 1
         usePrepFile = readYesNo('Would you like to use the previously preprocessed network file?','Y','load');
     end
     
     if usePrepFile
         % Load the stored map file and print it.
         fprintf('Loading preprocessed map file: %s\n', correctName{1});
-        load([pathFile '/' correctName{1} '/'  correctName{1} '_preProc.mat'],...
+        load(strcatEnhanced([pathFile '/' correctName{1} '/'  correctName{1} '_preProc.mat']),...
             'outputMap');
         
         printMap = readYesNo('Would you like to print the map?','N');
@@ -76,11 +76,11 @@ function outputMap = loadMap( map, sumo )
         % save the processed map
         saveFile = readYesNo('Do you want to save the map file?', 'Y');
         if saveFile
-            if ~exist([pathFile '/' correctName{1} ],'dir')
-                mkdir([pathFile '/' correctName{1} ]);
+            if ~exist(strcatEnhanced([pathFile '/' correctName{1} ]),'dir')
+                mkdir(strcatEnhanced([pathFile '/' correctName{1} ]));
             end
             fprintf('Saving preprocessed map file: %s\n', correctName{1});
-            save([pathFile '/' correctName{1} '/' correctName{1} '_preProc.mat'],...
+            save(strcatEnhanced([pathFile '/' correctName{1} '/' correctName{1} '_preProc.mat']),...
                 'outputMap');
         else
             fprintf('Map file will not be saved\n.');

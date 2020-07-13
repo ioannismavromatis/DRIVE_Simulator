@@ -42,7 +42,7 @@ function outputMap = parseSUMOMap( map, sumo )
             if contains(controlledLanes{i}{k},'w')
                 continue
             end
-            tmp = strsplit(controlledLanes{i}{k},'_');
+            tmp = strsplitEnhanced(controlledLanes{i}{k},'_');
             edges{k} = tmp{1};
         end
         uniqueControlledLanes = unique(controlledLanes{i});
@@ -99,8 +99,8 @@ function outputMap = parseSUMOMap( map, sumo )
     outputMap.trafficLights = tfPosition;
 
     outputMap.simplTolerance = map.simplificationTolerance;
-    tmp = strsplit(sumo.routeFile,'/');
-    tmp = strsplit(tmp{end},'.');
+    tmp = strsplitEnhanced(sumo.routeFile,'/');
+    tmp = strsplitEnhanced(tmp{end},'.');
     outputMap.name = tmp{1};
     
     % Calculate the bounds finding the minimum/maximum x and y from the

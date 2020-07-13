@@ -60,8 +60,8 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes, losRSS,
         % Save the identified los/nlos interactions in an new file
         saveFile = readYesNo('Do you want to save all the V2V potential links in the corresponding file?', 'Y');
         if saveFile
-            if ~exist(correctPath,'dir')
-                mkdir(correctPath);
+            if ~exist(strcatEnhanced(correctPath),'dir')
+                mkdir(strcatEnhanced(correctPath));
             end
             
             % Add a unique random identifier in the file's name - this
@@ -70,7 +70,7 @@ function [ losIDs, nLosIDs, losNlosStatus, distanceTiles, sortedIndexes, losRSS,
             fprintf('Saving preprocessed potential V2V file: %s\n', fileSaveName);
 %             save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','distanceTiles','losNlosStatus',...
 %                 'sortedIndexes', 'BS', 'map','outputMap','losRSS','nLosRSS','rssAll','-v7.3');
-            save([correctPath '/' fileSaveName], 'distanceTiles','losNlosStatus',...
+            save(strcatEnhanced([correctPath '/' fileSaveName]), 'distanceTiles','losNlosStatus',...
                 'sortedIndexes', 'BS', 'map','outputMap','rssAll','-v7.3');
         else
             fprintf('The file with all the potential V2V links will not be saved\n.');

@@ -36,7 +36,7 @@ function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,
     
     if usePrepFile
         % Load the stored los/nlos links file.
-        load([filePos.folder '/' filePos.name])
+        load(strcatEnhanced([filePos.folder '/' filePos.name]))
         fprintf('File %s with all the selected basestations to be deployed was successfully loaded.\n', filePos.name);
     else
         for i = 1:length(BS.rats)
@@ -84,15 +84,15 @@ function [ chosenBSpos,tilesCovered,highestRSS ] = bsPlacement(map,outputMap,BS,
         % Save the identified los/nlos interactions in an new file
         saveFile = readYesNo('Do you want to save all the selected basestations to be deployed in the corresponding file?', 'Y');
         if saveFile
-            if ~exist(correctPath,'dir')
-                mkdir(correctPath);
+            if ~exist(strcatEnhanced(correctPath),'dir')
+                mkdir(strcatEnhanced(correctPath));
             end
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
             fileSaveName = [ fileName{end} '_' date '_bsPlacement.mat' ];
             fprintf('Saving preprocessed selected basestations to be deployed file: %s\n', fileSaveName);
-            save([correctPath '/' fileSaveName], 'chosenBSpos','tilesCovered',...
+            save(strcatEnhanced([correctPath '/' fileSaveName]), 'chosenBSpos','tilesCovered',...
                 'highestRSS','potentialBSPos','outputMap', 'BS', 'map',...
                 'toSave');
         else

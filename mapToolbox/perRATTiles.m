@@ -45,7 +45,7 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
     
     if usePrepFile
         % Load the stored los/nlos links file.
-        load([filePos.folder '/' filePos.name])
+        load(strcatEnhanced([filePos.folder '/' filePos.name]))
         fprintf('File %s with all the LOS/NLOS links was successfully loaded.\n', filePos.name);
     else
         for i = 1:length(BS.rats)
@@ -60,18 +60,18 @@ function [ losIDs,nLosIDs,losNlosStatus,distanceTiles,sortedIndexes,losRSS,nLosR
                 calculateRSSBStoBuilding(outputMap,potentialBSPos.(BS.rats{i}),BS,BS.rats{i});
         end
         
-        % Save the identified los/nlos interactions in an new file
+        % Save the identified LOS/NLOS interactions in an new file
         saveFile = readYesNo('Do you want to save all the V2I potential links in the corresponding file?', 'Y');
         if saveFile
-            if ~exist(correctPath,'dir')
-                mkdir(correctPath);
+            if ~exist(strcatEnhanced(correctPath),'dir')
+                mkdir(strcatEnhanced(correctPath));
             end
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
             fileSaveName = [ fileName{end} '_' date '_losNlosRAT.mat' ];
             fprintf('Saving preprocessed potential losNlosRAT file: %s\n', fileSaveName);
-            save([correctPath '/' fileSaveName], 'losIDs','nLosIDs','losNlosStatus','distanceTiles',...
+            save(strcatEnhanced([correctPath '/' fileSaveName]), 'losIDs','nLosIDs','losNlosStatus','distanceTiles',...
                 'sortedIndexes','losRSS','nLosRSS','rssAll', 'potentialBSPos','outputMap', 'BS', 'map',...
                 'distanceBuildings','sortedIndexesBuildings','rssBuildings');
         else

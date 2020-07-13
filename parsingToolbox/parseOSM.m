@@ -68,8 +68,8 @@ function outputMap = parseOSM( map )
     outputMap.roadsPolygons = roads;
     outputMap.roadsLine = roadsLine;
     outputMap.simplTolerance = map.simplificationTolerance;
-    tmp = strsplit(map.fileCorrectName,'/');
-    tmp = strsplit(tmp{end},'.');
+    tmp = strsplitEnhanced(map.fileCorrectName,'/');
+    tmp = strsplitEnhanced(tmp{end},'.');
     outputMap.name = tmp{1};
     
     % Calculate the bounds finding the minimum/maximum x and y from the

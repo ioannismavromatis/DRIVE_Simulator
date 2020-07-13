@@ -20,7 +20,7 @@ function correct = testSavedFile(filePos,outputMapTmp,BStmp,maptmp,potentialPosT
 
     global SIMULATOR
     
-    load([filePos.folder '/' filePos.name]);
+    load(strcatEnhanced([filePos.folder '/' filePos.name]));
     correctPos = 1;
     if nargin>4
         if ~isequal(potentialPosTmp,potentialBSPos)

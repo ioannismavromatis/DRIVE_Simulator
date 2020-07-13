@@ -45,7 +45,7 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
     
     if usePrepFile
         % Load the stored potential BS position file.
-        load([filePos.folder '/' filePos.name])
+        load(strcatEnhanced([filePos.folder '/' filePos.name]))
         fprintf('File %s with all the potential BS positions was successfully loaded.\n', filePos.name);
     else
         tic
@@ -89,15 +89,15 @@ function potentialPos = potentialBSPositions(outputMap, BS, map, linkBudget)
         % Save the identified positions in an new file
         saveFile = readYesNo('Do you want to save the potential BS positions file?', 'Y');
         if saveFile
-            if ~exist(correctPath,'dir')
-                mkdir(correctPath);
+            if ~exist(strcatEnhanced(correctPath),'dir')
+                mkdir(strcatEnhanced(correctPath));
             end
             
             % Add a unique random identifier in the file's name - this
             % helps with the easier loading later.
             fileSaveName = [ fileName{end} '_' date '_potentialPos.mat' ];
             fprintf('Saving preprocessed potential BS positions file: %s\n', fileSaveName);
-            save([correctPath '/' fileSaveName], 'potentialPos', 'outputMap', 'BS', 'map');
+            save(strcatEnhanced([correctPath '/' fileSaveName]), 'potentialPos', 'outputMap', 'BS', 'map');
         else
             fprintf('The file with all the potential BS positions will not be saved\n.');
         end

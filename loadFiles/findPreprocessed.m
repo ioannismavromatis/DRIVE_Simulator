@@ -32,16 +32,16 @@ function [filePos,correctPath,fileName] = findPreprocessed(map,outputMap,BS,str,
         % Path to the pre-processed maps.
         pathFile = SIMULATOR.pathPreprocessed;
         if SIMULATOR.map == 0
-            pathFile = [ pathFile '/osm' ];
+            pathFile = strcatEnhanced([ pathFile '/osm' ]);
         else
-            pathFile = [ pathFile '/sumo' ];
+            pathFile = strcatEnhanced([ pathFile '/sumo' ]);
         end
 
         % find all the files with potential BS positions saved before
         [ path, ~, ~ ] = fileparts(map.file);
-        fileName = strsplit(path,'/');
-        correctPath = [ pathFile '/' fileName{end} ];
-        filePos = dir([ correctPath '/*' str '.mat']);
+        fileName = strsplitEnhanced(path,'/');
+        correctPath = strcatEnhanced([ pathFile '/' fileName{end} ]);
+        filePos = dir(strcatEnhanced([ correctPath '/*' str '.mat']));
 
         % find the correct file to load -- test against the
         % outputMap,BS,map structures
