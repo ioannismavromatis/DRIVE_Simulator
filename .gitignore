@@ -2,6 +2,7 @@
 *.asv
 *.mat
 *.mexmaci64
+*.mexw64
 
 results
 .DS_Store

@@ -39,7 +39,7 @@ function [filePos,correctPath,fileName] = findPreprocessed(map,outputMap,BS,str,
 
         % find all the files with potential BS positions saved before
         [ path, ~, ~ ] = fileparts(map.file);
-        fileName = strsplitEnhanced(path,'/');
+        fileName = strsplit(path,'/');
         correctPath = strcatEnhanced([ pathFile '/' fileName{end} ]);
         filePos = dir(strcatEnhanced([ correctPath '/*' str '.mat']));
 

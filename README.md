@@ -30,4 +30,4 @@ The framework is designed in such a way to be highly parallelised and vectorised
 
 * OpenStreetMap [Website](https://www.openstreetmap.org/) and [map exporting online tool](https://www.openstreetmap.org/export).
 * SUMO Traffic Generator: [User Documentation](https://sumo.dlr.de/wiki/SUMO_User_Documentation) and [download links/installation instructions](https://sumo.dlr.de/userdoc/Downloads.html).
-* TraCI4Matlab [link](https://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab) and [installation instructions](https://usermanual.wiki/Pdf/usermanual.2041518461.pdf).
+* TraCI4Matlab [link](https://github.com/pipeacosta/traci4matlab) and [installation instructions](https://github.com/pipeacosta/traci4matlab/blob/master/user_manual.pdf).

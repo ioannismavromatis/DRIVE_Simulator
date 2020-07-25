@@ -34,12 +34,12 @@ function outputMap = loadMap( map, sumo )
         % Parcing an OSM map requires the file to be in '$name$.osm' format
         [ path, ~, ~ ] = fileparts(map.file);
         fileName = strsplitEnhanced(map.file,'/');
-        correctName = strsplitEnhanced(fileName{end},'.');
+        correctName = strsplit(fileName{end},'.');
         map.fileCorrectName = strcatEnhanced([ path '/' correctName{1} '.osm' ]);
     else
         % If parcing a SUMO map was chosen
         pathFile = strcatEnhanced([ pathFile '/sumo' ]);
-        fileName = strsplitEnhanced(sumo.routeFile,'/');
+        fileName = strsplit(sumo.routeFile,'/');
         correctName = strsplitEnhanced(fileName{end},'.');        
     end
     

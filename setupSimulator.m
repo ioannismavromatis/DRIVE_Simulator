@@ -33,13 +33,28 @@ function setupSimulator()
     
     if SIMULATOR.map
         % Kill SUMO instance if running
-        tmp = system('pgrep sumo');
+        if ismac || isunix
+            tmp = system('pgrep sumo');
+        elseif ispc
+            [~,tmp] = system('tasklist /FI "IMAGENAME eq sumo.exe"');
+            tmp = ~contains(tmp,'sumo.exe');
+        else
+            error('Unknown operating system. DRIVE is intended to be used with macOS, Linux and Windows OSs.')
+        end
+            
         if ~tmp 
             verbose('An instance from SUMO is already running in the background and it will be killed.')
             while ~tmp
-                system('killall sumo');
-                pause(1);
-                tmp = system('pgrep sumo');
+                if ismac || isunix
+                    system('killall sumo');
+                    pause(1);
+                    tmp = system('pgrep sumo');
+                elseif ispc
+                    system('taskkill /IM "sumo.exe" /F');
+                    pause(1);
+                    [~,tmp] = system('tasklist /FI "IMAGENAME eq sumo.exe"');
+                    tmp = ~contains(tmp,'sumo.exe');
+                end
             end
         end
     end
