@@ -12,6 +12,20 @@ DRIVE can be used for investigating different communication-related problems, su
 
 The framework is designed in such a way to be highly parallelised and vectorised. Therefore, the execution time is minimised making it a great tool for developing AI- and Machine Learning algorithms for the above-mentioned problems. Of course, traditional optimisation algorithms can be used in a similar fashion. This framework, being designed in MATLAB, can be very easily linked with the existing optimisation and Machine-learning toolboxes provided by MathWorks. However, the MATLAB implementation does not limit the end-user to use machine-learning algorithms on different programming languages as well. For example, [this link](https://uk.mathworks.com/products/matlab/matlab-and-python.html) describes how Python libraries can be called from within MATLAB.
 
+License
+------------
+This code is freely available under the terms of the license found in the [LICENCE](https://github.com/ioannismavromatis/DRIVE_Simulator/blob/master/LICENSE) file.\
+If this code is used for drafting a manuscript, all we ask is to cite the following papers:
+```    
+@inproceedings{driveSimulator
+    author={{Mavromatis}, I. and {Piechocki}, R. and {Sooriyabandara}, M. and {Parekh}, A.},
+    booktitle={Proc. of IEEE Symposium on Computers and Communications (ISCC)},
+    title={{DRIVE: A Digital Network Oracle for Cooperative Intelligent Transportation Systems}},
+    year={2020},
+    month={jul},
+}
+```
+
 ## This repository contains:
 
 * DRIVE code.
