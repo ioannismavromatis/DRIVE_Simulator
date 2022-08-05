@@ -8,7 +8,7 @@ noiseFloor = -174; % noise floor
 noiseFigure = -6; % noise figure
 cBandwidth=2160000000; % channel bandwidth in Hz
 beamwidthAngle = 15; % default beamwidth for mmWaves - may be changed during the simulation time
-height = [ 5 15 ]; % The range of heights that an mmWave basestation might be placed
+bsHeight = [ 5 15 ]; % The range of heights that an mmWave basestation might be placed
 mimo = 0; 
 % The maximum distance that the mmWave signal can still be considered as
 % received -- if a very big value is chosen, it will be adapted later given

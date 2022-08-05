@@ -81,7 +81,7 @@ function [ BS, linkBudget, map ] = loadRATs(BS,linkBudget,map)
         end
         
         if strcmp(ratType,'femto')
-            BS.(ratName).height = height;
+            BS.(ratName).height = bsHeight;
             map.femtoDistanceThreshold = femtoDistanceThreshold;
         elseif strcmp(ratType,'macro')
             map.macroDensity = macroDensity;
